@@ -1,20 +1,32 @@
-package g20.brunelplanner;
+package g20.brunelplanner.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import g20.brunelplanner.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_login);
     }
+
+
+    public void actionLogin(View view) {
+//        EditText student_id = (EditText)findViewById(R.id.input_student_id);
+//        EditText student_password = (EditText)findViewById(R.id.input_student_password);
+//        Log.d("App", student_id.getText().toString());
+//        Log.d("App", student_password.getText().toString());
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

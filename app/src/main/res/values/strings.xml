@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">Brunel Planner</string>
+    <!-- Action Bar-->
+    <string name="app_name">Brunel\nPlanner</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Misc -->
+    <string name="text_student_id">Student ID</string>
+    <string name="text_student_password">Password</string>
+    <string name="button_login">Login</string>
+
 </resources>
