@@ -4,15 +4,13 @@ import android.app.Application;
 
 public class BPApplication extends Application {
 
-    private static BPApplication sInstance;
-
-    public static BPApplication getInstance(){
-        return sInstance;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
     }
+
+//    private void initializePreferences() {
+//        PreferenceUtils.initializePreferences();
+//    }
 
 }

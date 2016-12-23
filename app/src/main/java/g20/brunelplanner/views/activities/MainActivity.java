@@ -17,12 +17,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        Lambdas require the Jack toolchain :<
-//        Observable.just("Hello")
-//                .map(String::length)
-//                .subscribe(System.out::println);
-//
-
     }
 
     @Override

@@ -10,7 +10,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        jackOptions {
+//            enabled true
+//        }
     }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -24,7 +31,30 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    // Support dependencies
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
+
+    // Reactive component to our application
+    compile 'io.reactivex.rxjava2:rxjava:2.0.3'
+
+    // Networking
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okio:okio:1.11.0'
+
+    // Cookies
+    // compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+
+    // Binding
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // HTML parser
+    compile 'org.jsoup:jsoup:1.10.1'
+
+    // Converts Java Objects into JSON and back
+    compile 'com.google.code.gson:gson:2.8.0'
+
 }
