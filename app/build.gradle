@@ -42,10 +42,8 @@ dependencies {
 
     // Networking
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'com.squareup.okio:okio:1.11.0'
-
-    // Cookies
-    // compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
 
     // Binding
     compile 'com.jakewharton:butterknife:8.4.0'

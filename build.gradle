@@ -15,9 +15,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-
-        // Needed for PersistentCookieJar dep
-        // maven { url "https://jitpack.io" }
     }
 }
 

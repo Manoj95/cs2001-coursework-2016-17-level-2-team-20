@@ -1,6 +1,6 @@
 <resources>
     <!-- Action Bar-->
-    <string name="app_name">Brunel\nPlanner</string>
+    <string name="app_name">Brunel Planner</string>
     <string name="action_settings">Settings</string>
 
     <!-- Misc -->
