@@ -27,7 +27,7 @@ public class NonPersistentCookieJar implements CookieJar {
         Iterator<Cookie> it = cookieStore.iterator();
         while (it.hasNext()) {
             Cookie cookie = it.next();
-            LogCookie(cookie);
+//            LogCookie(cookie);
             if (cookie.expiresAt() < System.currentTimeMillis()) {
                 it.remove();
             } else if (cookie.matches(url)) {

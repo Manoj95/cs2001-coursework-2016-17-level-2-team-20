@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         // Add to disposables
         disposables.add(BrunelService.getInstance()
                 // Link to the Observable and pass through is and password
-                .authenticateStudent(studentId.getText().toString(),studentPassword.getText().toString())
+                .authenticateStudent(studentId.getText().toString(), studentPassword.getText().toString())
                 // Run on a background thread
                 .subscribeOn(Schedulers.io())
                 // Create Observer
@@ -76,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         // Show errors from networking
+                        Log.e(TAG, e.getMessage(), e);
                         progressDialog.dismiss();
                         Snackbar snackbar = Snackbar
                                 .make(view, e.getMessage(), Snackbar.LENGTH_LONG);
