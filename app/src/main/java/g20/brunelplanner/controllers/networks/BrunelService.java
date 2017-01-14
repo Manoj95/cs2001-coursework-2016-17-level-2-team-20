@@ -1,6 +1,13 @@
-package g20.brunelplanner.network;
+package g20.brunelplanner.controllers.networks;
 
-import android.util.Log;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,11 +16,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.Callable;
 
+import g20.brunelplanner.models.Timetable;
+import g20.brunelplanner.models.Weeks;
 import g20.brunelplanner.utils.NonPersistentCookieJar;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,9 +39,10 @@ public class BrunelService {
 
     private static final String TAG = BrunelService.class.getSimpleName();
     private static BrunelService sInstance = new BrunelService();
-    private OkHttpClient mClient;
+    private static OkHttpClient mClient;
 
     private BrunelService() {
+        // The cookie jar might not be needed
         NonPersistentCookieJar cookieJar = new NonPersistentCookieJar();
         mClient = new OkHttpClient.Builder()
                 .cookieJar(cookieJar)
@@ -37,10 +53,11 @@ public class BrunelService {
         return sInstance;
     }
 
-    public Observable<String> authenticateStudent(final String studentID, final String studentPassword) {
-        return Observable.defer(new Callable<ObservableSource<? extends String>>() {
+    // TODO: Amend to fit MVP architecture
+    public Observable<JSONArray> getTimetable(final String studentID, final String studentPassword) {
+        return Observable.defer(new Callable<ObservableSource<? extends JSONArray>>() {
             @Override
-            public ObservableSource<? extends String> call() throws Exception {
+            public ObservableSource<? extends JSONArray> call() throws Exception {
 
                 String LOGIN_URL = "https://teaching.brunel.ac.uk/SWS-1617/Login.aspx";
                 String BASE_URL = "https://teaching.brunel.ac.uk/SWS-1617/default.aspx";
@@ -115,7 +132,6 @@ public class BrunelService {
                 String timetableValidation = moduleHTML.select("input[name=__EVENTVALIDATION]").first().attr("value");
 
                 FormBody.Builder test = new FormBody.Builder();
-
                 test.add("__VIEWSTATE", timetableState);
                 test.add("__VIEWSTATEGENERATOR", timetableStageGenerator);
                 test.add("__EVENTVALIDATION", timetableValidation);
@@ -142,10 +158,10 @@ public class BrunelService {
                 Document timetableHtml = Jsoup.parse(timetableResponse.body().string());
                 String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
                 Elements tables = timetableHtml.getElementsByClass("spreadsheet");
-                JSONObject jsonTimetable = new JSONObject();
 
+                JSONArray timetable = new JSONArray();
+                int primaryKey = 1;
                 for (int i = 0; i < tables.size(); i++) {
-                    JSONArray modules = new JSONArray();
                     Elements rows = tables.get(i).getElementsByTag("tr");
 
                     if (rows.size() != 0) {
@@ -153,27 +169,79 @@ public class BrunelService {
                     }
 
                     for (Element row: rows) {
-                        JSONObject module = new JSONObject();
-                        module.put("Activity: ", row.getElementsByTag("td").get(0).text().replaceAll("( ?<.*>)", ""));
-                        module.put("Description: ", row.getElementsByTag("td").get(1).text());
-                        module.put("Start: ", row.getElementsByTag("td").get(2).text());
-                        module.put("End: ", row.getElementsByTag("td").get(3).text());
-                        module.put("Weeks", getWeeks(row.getElementsByTag("td").get(4).text()));
-                        module.put("Room: ", row.getElementsByTag("td").get(5).text());
-                        module.put("Staff: ", row.getElementsByTag("td").get(6).text());
-                        module.put("Type: ", row.getElementsByTag("td").get(7).text());
-                        modules.put(module);
+                        JSONObject item = new JSONObject();
+
+                        item.put("id", primaryKey);
+                        primaryKey++;
+
+                        item.put("day", weekdays[i]);
+                        item.put("activity", row.getElementsByTag("td").get(0).text().replaceAll("( ?<.*>)", ""));
+                        item.put("description", row.getElementsByTag("td").get(1).text());
+                        item.put("start", row.getElementsByTag("td").get(2).text());
+                        item.put("end", row.getElementsByTag("td").get(3).text());
+                        item.put("weeks", getWeeks(row.getElementsByTag("td").get(4).text()));
+                        item.put("room", row.getElementsByTag("td").get(5).text());
+                        item.put("staff", row.getElementsByTag("td").get(6).text());
+                        item.put("type", row.getElementsByTag("td").get(7).text());
+
+                        timetable.put(item);
                     }
 
-                    if (i <= 4) {
-                        jsonTimetable.put(weekdays[i], modules);
-                    }
                 }
 
-                // Doing all those pull requests may be too long
-                Log.d(TAG, jsonTimetable.toString(4));
+                Type token = new TypeToken<RealmList<Weeks>>(){}.getType();
+                Gson gson = new GsonBuilder()
+                        .setExclusionStrategies(new ExclusionStrategy() {
+                            @Override
+                            public boolean shouldSkipField(FieldAttributes f) {
+                                return f.getDeclaringClass().equals(RealmObject.class);
+                            }
 
-                return Observable.just("Valid");
+                            @Override
+                            public boolean shouldSkipClass(Class<?> clazz) {
+                                return false;
+                            }
+                        })
+                        .registerTypeAdapter(token, new TypeAdapter<RealmList<Weeks>>() {
+
+                            @Override
+                            public void write(JsonWriter out, RealmList<Weeks> value) throws IOException {
+                                // Ignore
+                            }
+
+                            @Override
+                            public RealmList<Weeks> read(JsonReader in) throws IOException {
+                                RealmList<Weeks> list = new RealmList<>();
+                                in.beginArray();
+
+//                        if (in.peek() == JsonToken.NULL) {
+//                            in.nextNull();
+//                            return null;
+//                        }
+
+                                while (in.hasNext()) {
+                                    Weeks ri = new Weeks();
+                                    ri.setVal(in.nextInt());
+                                    list.add(ri);
+                                }
+                                in.endArray();
+                                return list;
+                            }
+                        })
+                        .create();
+
+                final List<Timetable> objects = gson.fromJson(timetable.toString(), new TypeToken<List<Timetable>>(){}.getType());
+
+                Realm realm = Realm.getDefaultInstance();
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.copyToRealmOrUpdate(objects);
+                    }
+                });
+                realm.close();
+
+                return Observable.just(timetable);
             }
         });
     }
