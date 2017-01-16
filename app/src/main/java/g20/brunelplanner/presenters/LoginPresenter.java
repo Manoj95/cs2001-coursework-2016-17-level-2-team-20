@@ -23,6 +23,7 @@ public class LoginPresenter implements Presenter {
     }
 
     private void validate() {
+        // If login succeeded, move onto the main activity
         if (studentValid) {
             loginView.showTimetable();
         } else {
@@ -31,6 +32,7 @@ public class LoginPresenter implements Presenter {
     }
 
     public void authStudent(final View v, final String studentId, final String studentPassword) {
+        // Show the progress dialog while attempting login
         loginView.showDialog(v);
         // TODO: Dispose after a successful login
         disposables.add(BrunelService.getInstance()
@@ -55,6 +57,7 @@ public class LoginPresenter implements Presenter {
 
                     @Override
                     public void onNext(JSONArray value) {
+                        // If the value obtained is not null then the user has logged in
                         if (value != null) {
                             studentValid = true;
                         }

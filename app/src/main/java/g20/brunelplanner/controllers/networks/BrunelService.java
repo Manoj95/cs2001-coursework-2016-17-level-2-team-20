@@ -43,36 +43,49 @@ public class BrunelService {
 
     private BrunelService() {
         // The cookie jar might not be needed
+        // Save the session cookies between requests
         NonPersistentCookieJar cookieJar = new NonPersistentCookieJar();
+
+        // Build the OkHttp client with the cookie jar
         mClient = new OkHttpClient.Builder()
                 .cookieJar(cookieJar)
                 .build();
     }
 
+    // Allows access to this class
     public static BrunelService getInstance() {
         return sInstance;
     }
 
     // TODO: Amend to fit MVP architecture
+    // This observable has 3 main tasks (2 too many): networking, json, and database.
+    // Some RxJava examples: https://github.com/ReactiveX/RxJava/wiki/How-To-Use-RxJava
     public Observable<JSONArray> getTimetable(final String studentID, final String studentPassword) {
         return Observable.defer(new Callable<ObservableSource<? extends JSONArray>>() {
             @Override
             public ObservableSource<? extends JSONArray> call() throws Exception {
 
+                // Urls used for networking
                 String LOGIN_URL = "https://teaching.brunel.ac.uk/SWS-1617/Login.aspx";
                 String BASE_URL = "https://teaching.brunel.ac.uk/SWS-1617/default.aspx";
 
+                // Set up request to obtain login page values
                 Request getLoginValues = new Request.Builder()
                         .url(LOGIN_URL)
                         .build();
 
+                // Conduct getLoginValues request and save response
                 Response loginHeaders = mClient.newCall(getLoginValues).execute();
 
+                // Pass html
                 Document loginHtml = Jsoup.parse(loginHeaders.body().string());
+
+                // Parse the html and obtain the values
                 String viewState = loginHtml.select("input[name=__VIEWSTATE]").first().attr("value");
                 String viewStageGenerator = loginHtml.select("input[name=__VIEWSTATEGENERATOR]").first().attr("value");
                 String eventValidation = loginHtml.select("input[name=__EVENTVALIDATION]").first().attr("value");
 
+                // Create the request body with the login post data
                 RequestBody loginBody = new FormBody.Builder()
                         .add("__VIEWSTATE", viewState)
                         .add("__VIEWSTATEGENERATOR", viewStageGenerator)
@@ -83,6 +96,8 @@ public class BrunelService {
                         .add("bLogin", "Login")
                         .build();
 
+                // Create the request with the relevant headers and attach the login post body
+                // Some of these headers may not be required
                 Request loginRequest = new Request.Builder()
                         .url(LOGIN_URL)
                         .addHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -91,18 +106,24 @@ public class BrunelService {
                         .post(loginBody)
                         .build();
 
+                // Execute and save response
                 Response loginResponse = mClient.newCall(loginRequest).execute();
+
+                // Parse html
                 Document redirect = Jsoup.parse(loginResponse.body().string());
 
                 // Hacky way to check if user is logged in
+                // If anything other than logged html is found then an error is thrown
                 if (redirect.select("form[name=form1]").first().attr("action").equals("Login.aspx")) {
                     throw new Exception("Invalid");
                 }
 
+                // Get values again
                 String redirectState = redirect.select("input[name=__VIEWSTATE]").first().attr("value");
                 String redirectStageGenerator = redirect.select("input[name=__VIEWSTATEGENERATOR]").first().attr("value");
                 String redirectValidation = redirect.select("input[name=__EVENTVALIDATION]").first().attr("value");
 
+                // Create request body that navigates to the student modules page
                 RequestBody moduleBody = new FormBody.Builder()
                         .add("__EVENTTARGET", "LinkBtn_studentmodules")
                         .add("__VIEWSTATE", redirectState)
@@ -111,6 +132,7 @@ public class BrunelService {
                         .add("tLinkType", "information")
                         .build();
 
+                // Set up request
                 Request moduleRequest = new Request.Builder()
                         .url(BASE_URL)
                         .addHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -118,34 +140,42 @@ public class BrunelService {
                         .post(moduleBody)
                         .build();
 
+                // Execute and save response
                 Response moduleResponse = mClient.newCall(moduleRequest).execute();
 
+                // Parse html
                 Document moduleHTML = Jsoup.parse(moduleResponse.body().string());
+
+                // Find all the modules in the html
                 Elements options = moduleHTML.select("#dlObject > option");
+
+                // Store the modules in an array
                 String[] studentModules = new String[options.size()];
                 for (int i = 0; i < options.size(); i++) {
                     studentModules[i] = options.get(i).text();
                 }
 
+                // Get values from html
                 String timetableState = moduleHTML.select("input[name=__VIEWSTATE]").first().attr("value");
                 String timetableStageGenerator = moduleHTML.select("input[name=__VIEWSTATEGENERATOR]").first().attr("value");
                 String timetableValidation = moduleHTML.select("input[name=__EVENTVALIDATION]").first().attr("value");
 
-                FormBody.Builder test = new FormBody.Builder();
-                test.add("__VIEWSTATE", timetableState);
-                test.add("__VIEWSTATEGENERATOR", timetableStageGenerator);
-                test.add("__EVENTVALIDATION", timetableValidation);
-                test.add("tLinkType", "studentmodules");
+                // Build timetable post body
+                FormBody.Builder mainPostBody = new FormBody.Builder();
+                mainPostBody.add("__VIEWSTATE", timetableState);
+                mainPostBody.add("__VIEWSTATEGENERATOR", timetableStageGenerator);
+                mainPostBody.add("__EVENTVALIDATION", timetableValidation);
+                mainPostBody.add("tLinkType", "studentmodules");
                 for (String module: studentModules) {
-                    test.add("dlObject", module);
+                    mainPostBody.add("dlObject", module);
                 }
-                test.add("lbWeeks", "1-16");
-                test.add("lbDays", "1-7");
-                test.add("dlType", "TextSpreadsheet;swsurl;SWSCUST Object TextSpreadsheet&combined=yes");
-                test.add("bGetTimetable", "View Timetable");
+                mainPostBody.add("lbWeeks", "1-16");
+                mainPostBody.add("lbDays", "1-7");
+                mainPostBody.add("dlType", "TextSpreadsheet;swsurl;SWSCUST Object TextSpreadsheet&combined=yes");
+                mainPostBody.add("bGetTimetable", "View Timetable");
+                RequestBody timetableBody = mainPostBody.build();
 
-                RequestBody timetableBody = test.build();
-
+                // Build request with headers
                 Request timetableRequest = new Request.Builder()
                         .url(BASE_URL)
                         .addHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -153,14 +183,19 @@ public class BrunelService {
                         .post(timetableBody)
                         .build();
 
+                // Execute request
                 Response timetableResponse = mClient.newCall(timetableRequest).execute();
 
+                // Parse response html
                 Document timetableHtml = Jsoup.parse(timetableResponse.body().string());
-                String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-                Elements tables = timetableHtml.getElementsByClass("spreadsheet");
 
+                // Get the tables from the html
+                Elements tables = timetableHtml.getElementsByClass("spreadsheet");
+                String[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
                 JSONArray timetable = new JSONArray();
                 int primaryKey = 1;
+
+                // Loop through the tables and get the relevant data
                 for (int i = 0; i < tables.size(); i++) {
                     Elements rows = tables.get(i).getElementsByTag("tr");
 
@@ -172,11 +207,9 @@ public class BrunelService {
                         JSONObject item = new JSONObject();
 
                         item.put("id", primaryKey);
-                        primaryKey++;
-
                         item.put("day", weekdays[i]);
                         item.put("activity", row.getElementsByTag("td").get(0).text().replaceAll("( ?<.*>)", ""));
-                        item.put("description", row.getElementsByTag("td").get(1).text().replace("\u00a0",""));
+                        item.put("description", row.getElementsByTag("td").get(1).text().replace("\u00a0", ""));
                         item.put("start", row.getElementsByTag("td").get(2).text());
                         item.put("end", row.getElementsByTag("td").get(3).text());
                         item.put("weeks", getWeeks(row.getElementsByTag("td").get(4).text()));
@@ -184,11 +217,13 @@ public class BrunelService {
                         item.put("staff", row.getElementsByTag("td").get(6).text().replace("\u00a0",""));
                         item.put("type", row.getElementsByTag("td").get(7).text());
 
+                        primaryKey++;
                         timetable.put(item);
                     }
 
                 }
 
+                // Create custom type adapter for the Weeks RealmList
                 Type token = new TypeToken<RealmList<Weeks>>(){}.getType();
                 Gson gson = new GsonBuilder()
                         .setExclusionStrategies(new ExclusionStrategy() {
@@ -214,10 +249,10 @@ public class BrunelService {
                                 RealmList<Weeks> list = new RealmList<>();
                                 in.beginArray();
 
-//                        if (in.peek() == JsonToken.NULL) {
-//                            in.nextNull();
-//                            return null;
-//                        }
+                                //if (in.peek() == JsonToken.NULL) {
+                                    //in.nextNull();
+                                    //return null;
+                                //}
 
                                 while (in.hasNext()) {
                                     Weeks ri = new Weeks();
@@ -230,15 +265,20 @@ public class BrunelService {
                         })
                         .create();
 
+
                 final List<Timetable> objects = gson.fromJson(timetable.toString(), new TypeToken<List<Timetable>>(){}.getType());
 
+                // Get the default Realm instance
                 Realm realm = Realm.getDefaultInstance();
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
+                        // Put the list into realm
                         realm.copyToRealmOrUpdate(objects);
                     }
                 });
+
+                // Close the realm instance
                 realm.close();
 
                 return Observable.just(timetable);
@@ -246,6 +286,9 @@ public class BrunelService {
         });
     }
 
+    // This method converts the weeks string into an array of ints
+    // also expands the weeks e.g.
+    // 2-6 -> 2, 3, 4, 5, 6
     private static JSONArray getWeeks(String weekString) {
         JSONArray weeks = new JSONArray();
         String[] weekArray = weekString.split(",[ ]*");

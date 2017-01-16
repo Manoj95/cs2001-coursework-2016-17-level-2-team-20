@@ -7,6 +7,8 @@ import io.realm.RealmConfiguration;
 
 public class BPApplication extends Application {
 
+    // This runs first when the application starts
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -15,6 +17,7 @@ public class BPApplication extends Application {
     }
 
     private void initRealmConfiguration() {
+        // Start the Realm db and set it as the default db
         Realm.init(this);
         RealmConfiguration baseTimetable = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()

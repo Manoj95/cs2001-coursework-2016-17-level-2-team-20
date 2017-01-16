@@ -30,12 +30,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+
+        // Start the recycler view
         setUpRecyclerView();
 
     }
 
     private void setUpRecyclerView() {
+        // This is needed for some reason
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Set the adapter for the recycler view and populate with the realm data
         recyclerView.setAdapter(new RecyclerViewAdapter(this, realm.where(Timetable.class).findAllAsync()));
         recyclerView.setHasFixedSize(true);
     }
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_settings:
                 return true;
+            // Delete the realm db and start the login activity when
+            // the user wants to logout
             case R.id.action_logout:
                 realm.close();
                 Realm.deleteRealm(realm.getConfiguration());

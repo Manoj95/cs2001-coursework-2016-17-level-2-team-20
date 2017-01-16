@@ -23,9 +23,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private LoginPresenter presenter;
     private ProgressDialog progressDialog;
 
+    // Use ButterKnife to bind the views to the activity
     @BindView(R.id.input_student_id) EditText studentId;
     @BindView(R.id.input_student_password) EditText studentPassword;
-    // TODO: Use these to disppay field errors
+    // TODO: Use these to display field errors
     //@BindView(R.id.input_id_wrapper) TextInputLayout idWrapper;
     //@BindView(R.id.input_password_wrapper) TextInputLayout passwordWrapper;
     @BindView(R.id.btn_login) Button loginButton;
@@ -34,8 +35,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Get access to the default realm instance
         Realm realm = Realm.getDefaultInstance();
+
         // TODO: Check this works on edge cases
+        // If the realm db is not empty then it means the user is logged in
+        // proceed to the main activity
         if (realm.isEmpty()) {
             realm.close();
             ButterKnife.bind(this);
@@ -60,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showDialog(View view) {
+        // Show the dialog
         progressDialog = new ProgressDialog(view.getContext(), R.style.DarkDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
@@ -85,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         finish();
     }
 
+    // ButterKnife allows us to call methods like this
     @OnClick(R.id.btn_login)
     public void buttonLogin(View v) {
         presenter.authStudent(
