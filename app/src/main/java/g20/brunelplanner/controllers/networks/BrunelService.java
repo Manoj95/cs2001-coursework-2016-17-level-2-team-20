@@ -176,12 +176,12 @@ public class BrunelService {
 
                         item.put("day", weekdays[i]);
                         item.put("activity", row.getElementsByTag("td").get(0).text().replaceAll("( ?<.*>)", ""));
-                        item.put("description", row.getElementsByTag("td").get(1).text());
+                        item.put("description", row.getElementsByTag("td").get(1).text().replace("\u00a0",""));
                         item.put("start", row.getElementsByTag("td").get(2).text());
                         item.put("end", row.getElementsByTag("td").get(3).text());
                         item.put("weeks", getWeeks(row.getElementsByTag("td").get(4).text()));
                         item.put("room", row.getElementsByTag("td").get(5).text());
-                        item.put("staff", row.getElementsByTag("td").get(6).text());
+                        item.put("staff", row.getElementsByTag("td").get(6).text().replace("\u00a0",""));
                         item.put("type", row.getElementsByTag("td").get(7).text());
 
                         timetable.put(item);

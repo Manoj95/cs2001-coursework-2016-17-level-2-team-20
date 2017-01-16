@@ -1,7 +1,5 @@
 package g20.brunelplanner.utils;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -27,7 +25,6 @@ public class NonPersistentCookieJar implements CookieJar {
         Iterator<Cookie> it = cookieStore.iterator();
         while (it.hasNext()) {
             Cookie cookie = it.next();
-//            LogCookie(cookie);
             if (cookie.expiresAt() < System.currentTimeMillis()) {
                 it.remove();
             } else if (cookie.matches(url)) {
@@ -35,16 +32,5 @@ public class NonPersistentCookieJar implements CookieJar {
             }
         }
         return matchingCookies;
-    }
-
-    private void LogCookie(Cookie cookie) {
-        Log.d(TAG, "String: " + cookie.toString());
-        Log.d(TAG, "String: " + cookie.toString());
-        Log.d(TAG, "Expires: " + cookie.expiresAt());
-        Log.d(TAG, "Hash: " + cookie.hashCode());
-        Log.d(TAG, "Path: " + cookie.path());
-        Log.d(TAG, "Domain: " + cookie.domain());
-        Log.d(TAG, "Name: " + cookie.name());
-        Log.d(TAG, "Value: " + cookie.value());
     }
 }

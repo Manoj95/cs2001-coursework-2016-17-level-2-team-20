@@ -20,7 +20,6 @@ public class BPApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(baseTimetable);
-        //Realm.deleteRealm(baseTimetable);
 
     }
 

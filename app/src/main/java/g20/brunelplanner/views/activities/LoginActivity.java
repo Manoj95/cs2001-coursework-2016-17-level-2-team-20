@@ -37,10 +37,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Realm realm = Realm.getDefaultInstance();
         // TODO: Check this works on edge cases
         if (realm.isEmpty()) {
+            realm.close();
             ButterKnife.bind(this);
             presenter = new LoginPresenter(this);
             presenter.onCreate();
         } else {
+            realm.close();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
