@@ -11,15 +11,15 @@ import java.util.Arrays;
 
 import g20.brunelplanner.R;
 import g20.brunelplanner.models.Timetable;
-import g20.brunelplanner.views.activities.MainActivity;
+import g20.brunelplanner.views.activities.MainTimetableActivity;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
 public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable, RecyclerViewAdapter.MyViewHolder> {
 
-    private final MainActivity activity;
+    private final MainTimetableActivity activity;
 
-    public RecyclerViewAdapter(MainActivity activity, OrderedRealmCollection<Timetable> data) {
+    public RecyclerViewAdapter(MainTimetableActivity activity, OrderedRealmCollection<Timetable> data) {
         super(activity, data, true);
         this.activity = activity;
     }
