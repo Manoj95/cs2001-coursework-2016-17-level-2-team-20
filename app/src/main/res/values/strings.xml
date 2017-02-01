@@ -8,5 +8,12 @@
     <string name="text_student_id">Student ID</string>
     <string name="text_student_password">Password</string>
     <string name="button_login">Login</string>
+    <string name="title_activity_main_timetable">MainTimetableActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
