@@ -5,31 +5,31 @@
         <item
             android:id="@+id/nav_timetable"
             android:icon="@drawable/ic_date_range_black"
-            android:title="Timetable" />
+            android:title="@string/nav_drawer_timetable" />
         <item
             android:id="@+id/nav_modules"
             android:icon="@drawable/ic_view_module_black_48dp"
-            android:title="Modules" />
+            android:title="@string/nav_drawer_modules" />
         <item
             android:id="@+id/nav_custom_events"
             android:icon="@drawable/ic_event_black_48dp"
-            android:title="Custom Events" />
+            android:title="@string/nav_drawer_custom_events" />
         <item
-            android:id="@+id/nav_note"
+            android:id="@+id/nav_notes"
             android:icon="@drawable/ic_note_black_48dp"
-            android:title="Notes" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_48dp"
-            android:title="Settings" />
-        <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_help_outline_black_48dp"
-            android:title="Help" />
+            android:title="@string/nav_drawer_notes" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_black_48dp"
-            android:title="About" />
+            android:title="@string/nav_drawer_about" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_48dp"
+            android:title="@string/nav_drawer_settings" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_outline_black_48dp"
+            android:title="@string/nav_drawer_help" />
     </group>
 
 

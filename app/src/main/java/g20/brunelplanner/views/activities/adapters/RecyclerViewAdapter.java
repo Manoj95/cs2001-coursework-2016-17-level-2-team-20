@@ -11,22 +11,21 @@ import java.util.Arrays;
 
 import g20.brunelplanner.R;
 import g20.brunelplanner.models.Timetable;
-import g20.brunelplanner.views.activities.MainTimetableActivity;
+import g20.brunelplanner.views.activities.fragments.TimetableFragment;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable, RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
+        RecyclerViewAdapter.MyViewHolder> {
 
-    private final MainTimetableActivity activity;
-
-    public RecyclerViewAdapter(MainTimetableActivity activity, OrderedRealmCollection<Timetable> data) {
-        super(activity, data, true);
-        this.activity = activity;
+    public RecyclerViewAdapter(TimetableFragment activity, OrderedRealmCollection<Timetable> data) {
+        super(activity.getActivity().getApplicationContext(), data, true);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false));
+        return new MyViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false));
     }
 
     @Override
@@ -34,10 +33,8 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable, Rec
         Timetable obj = getData().get(position);
         holder.data = obj;
         holder.activity.setText(obj.getActivity());
-        holder.desc.setText(obj.getDescription());
-        holder.room.setText(obj.getRoom());
-        holder.desc.setText(obj.getStaff());
-        holder.type.setText(obj.getType());
+        holder.room_and_type.setText(obj.getRoom() + " [" + obj.getType() + "]");
+        holder.staff.setText(obj.getStaff());
 
         int[] weeks = new int[obj.getWeeks().size()];
         for (int i = 0; i < obj.getWeeks().size(); i++) {
@@ -49,23 +46,19 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable, Rec
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public CardView cardView;
-        public TextView activity;
-        public TextView desc;
-        public TextView room;
-        public TextView staff;
-        public TextView type;
-        public TextView weeks;
+        CardView cardView;
+        TextView activity;
+        TextView room_and_type;
+        TextView staff;
+        TextView weeks;
         public Timetable data;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             activity = (TextView) view.findViewById(R.id.event_activity);
-            desc = (TextView) view.findViewById(R.id.event_desc);
-            room = (TextView) view.findViewById(R.id.event_room);
+            room_and_type = (TextView) view.findViewById(R.id.event_room_and_type);
             staff = (TextView) view.findViewById(R.id.event_staff);
-            type = (TextView) view.findViewById(R.id.event_type);
             weeks = (TextView) view.findViewById(R.id.event_weeks);
         }
 
