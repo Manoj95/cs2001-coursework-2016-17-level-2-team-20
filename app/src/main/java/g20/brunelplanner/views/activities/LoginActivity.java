@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             presenter.onCreate();
         } else {
             realm.close();
-            startActivity(new Intent(this, MainTimetableActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
 
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showTimetable() {
-        startActivity(new Intent(this, MainTimetableActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
