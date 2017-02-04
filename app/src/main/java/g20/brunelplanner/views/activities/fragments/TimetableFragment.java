@@ -12,26 +12,28 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
+import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.models.Timetable;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
-import io.realm.Realm;
 
 
 public class TimetableFragment extends Fragment {
 
-    private Realm realm = Realm.getDefaultInstance();
-
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    protected final RealmController realmController = RealmController.getInstance();
 
     public TimetableFragment() {
         // Required empty public constructor
     }
+
     private void setUpRecyclerView() {
         // This is needed for some reason
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, realm.where(Timetable.class).findAllAsync()));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this,
+                realmController.getRealm().where(Timetable.class).findAllAsync()));
         recyclerView.setHasFixedSize(true);
     }
 
@@ -40,12 +42,15 @@ public class TimetableFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
-
         ButterKnife.bind(this, view);
-
         setUpRecyclerView();
-
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realmController.closeRealm();
     }
 
 }

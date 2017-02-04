@@ -1,5 +1,6 @@
 package g20.brunelplanner.views.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
+import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    protected final RealmController realmController = RealmController.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        // Adds animation to ham burger icon
+        // Adds animation to hamburger icon
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -63,13 +67,12 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
-            // Delete the realm db and start the login activity when
-            // the user wants to logout
             case R.id.action_logout:
-//                realm.close();
-//                Realm.deleteRealm(realm.getConfiguration());
-//                startActivity(new Intent(this, LoginActivity.class));
-//                finish();
+                // Delete the realm db and start the login activity when
+                // the user wants to logout
+                realmController.deleteRealm();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 return true;
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -128,11 +131,6 @@ public class MainActivity extends AppCompatActivity
         // Close the navigation drawer
         drawerLayout.closeDrawers();
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
 }
