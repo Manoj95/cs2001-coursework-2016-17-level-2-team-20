@@ -22,6 +22,26 @@
     <string name="nav_drawer_settings">Settings</string>
 
 
-    <string name="AboutText"></string>
+    <string name="AboutText">
+        Brunel Planner Application
 
+        Name of Developers:
+        Asha Parmar
+        Orion Koteki
+        Daniel Gubala
+        Manoj Chandrakumar
+        Cristian Rosu
+        Shaun
+
+        Language used: Java
+
+        The Brunel Planner application is an app that allows students to keep
+        track of their current timetable in a mobile friendly format.
+        The app allows users to customise features to add specific events alongside saving any relevant
+        details such as lecture notes
+
+        Version Number 1.0
+
+        License GNU GPLv3
+    </string>
 </resources>
