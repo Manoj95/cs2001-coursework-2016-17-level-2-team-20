@@ -21,8 +21,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import g20.brunelplanner.models.Timetable;
-import g20.brunelplanner.models.Weeks;
+import g20.brunelplanner.models.planner.Timetable;
+import g20.brunelplanner.models.planner.Weeks;
 import g20.brunelplanner.utils.NonPersistentCookieJar;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

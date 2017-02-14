@@ -1,4 +1,4 @@
-package g20.brunelplanner.models;
+package g20.brunelplanner.models.planner;
 
 import com.google.gson.annotations.SerializedName;
 

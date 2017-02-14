@@ -19,10 +19,10 @@ public class BPApplication extends Application {
     private void initRealmConfiguration() {
         // Start the Realm db and set it as the default db
         Realm.init(this);
-        RealmConfiguration baseTimetable = new RealmConfiguration.Builder()
+        RealmConfiguration base = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm.setDefaultConfiguration(baseTimetable);
+        Realm.setDefaultConfiguration(base);
 
     }
 
