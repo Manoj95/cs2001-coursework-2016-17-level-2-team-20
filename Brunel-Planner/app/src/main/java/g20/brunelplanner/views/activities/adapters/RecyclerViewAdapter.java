@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 
 import g20.brunelplanner.R;
-import g20.brunelplanner.models.Timetable;
+import g20.brunelplanner.models.planner.Timetable;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;

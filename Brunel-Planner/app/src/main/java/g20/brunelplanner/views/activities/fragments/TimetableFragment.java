@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
-import g20.brunelplanner.models.Timetable;
+import g20.brunelplanner.models.planner.Timetable;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
 
 
