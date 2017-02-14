@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    protected final RealmController realmController = RealmController.getInstance();
+    protected RealmController realmController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        setDefault();
 
     }
 
@@ -68,10 +69,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_settings:
                 return true;
             case R.id.action_logout:
+                realmController = RealmController.getInstance();
                 // Delete the realm db and start the login activity when
                 // the user wants to logout
                 realmController.deleteRealm();
                 startActivity(new Intent(this, LoginActivity.class));
+                // Might not be needed
                 finish();
                 return true;
             case android.R.id.home:
@@ -131,6 +134,27 @@ public class MainActivity extends AppCompatActivity
         // Close the navigation drawer
         drawerLayout.closeDrawers();
         return true;
+    }
+
+    private void setDefault() {
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = TimetableFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        navigationView.getMenu().findItem(R.id.nav_timetable).setChecked(true);
+        // Set action bar title
+        setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
 
 }
