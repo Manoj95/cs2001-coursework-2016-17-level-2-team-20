@@ -21,27 +21,36 @@
     <string name="nav_drawer_about">About</string>
     <string name="nav_drawer_settings">Settings</string>
 
+    <!-- About -->
+    <string name="about_title">Brunel Planner Application</string>
+    <string name="about_devs">Name of Developers:</string>
+    <string name="about_name_asha">Asha Parmar</string>
+    <string name="about_name_orion">Orion Koteki</string>
+    <string name="about_name_daniel">Daniel Gubala</string>
+    <string name="about_name_manoj">Manoj Chandrakumar</string>
+    <string name="about_name_cristian">Cristian Rosu</string>
+    <string name="about_name_shaun">Shaun</string>
 
-    <string name="AboutText">
-        Brunel Planner Application
+    <string name="about_name_language">Language Used:</string>
+    <string name="about_name_java">Java</string>
 
-        Name of Developers:
-        Asha Parmar
-        Orion Koteki
-        Daniel Gubala
-        Manoj Chandrakumar
-        Cristian Rosu
-        Shaun
-
-        Language used: Java
-
-        The Brunel Planner application is an app that allows students to keep
+    <string name="about_name_description">Description:</string>
+    <string name="about_name_descriptioninfo"> The Brunel Planner application is an app that allows students to keep
         track of their current timetable in a mobile friendly format.
         The app allows users to customise features to add specific events alongside saving any relevant
-        details such as lecture notes
+        details such as lecture notes.</string>
 
-        Version Number 1.0
+    <string name="about_name_version">Version Number:</string>
+    <string name="about_name_versionnumber">1.0</string>
 
-        License GNU GPLv3
-    </string>
+    <string name="about_name_license">License:</string>
+    <string name="about_name_licensetype">GNU GPLv3</string>
+
+
+
+
 </resources>
+
+
+
+
