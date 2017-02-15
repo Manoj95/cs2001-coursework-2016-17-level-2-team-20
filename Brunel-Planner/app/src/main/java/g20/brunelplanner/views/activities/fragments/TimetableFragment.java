@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
-import g20.brunelplanner.models.Timetable;
+import g20.brunelplanner.models.planner.Timetable;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
 
 
@@ -22,13 +22,16 @@ public class TimetableFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    protected final RealmController realmController = RealmController.getInstance();
+    protected RealmController realmController;
 
     public TimetableFragment() {
-        // Required empty public constructor
+        // ...
     }
 
     private void setUpRecyclerView() {
+        // There may be a better way to init this
+        realmController = RealmController.getInstance();
+
         // This is needed for some reason
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
@@ -48,8 +51,8 @@ public class TimetableFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         realmController.closeRealm();
     }
 

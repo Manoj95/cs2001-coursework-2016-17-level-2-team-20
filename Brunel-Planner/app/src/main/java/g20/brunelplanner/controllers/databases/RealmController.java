@@ -7,6 +7,10 @@ public class RealmController {
     private static RealmController mInstance;
     private Realm realm;
 
+    private RealmController() {
+        // ...
+    }
+
     public static RealmController getInstance() {
         if (mInstance == null) {
             mInstance = new RealmController();
@@ -15,7 +19,12 @@ public class RealmController {
     }
 
     public Realm getRealm() {
-        return realm;
+        if (realm != null) {
+            return realm;
+        } else {
+            realm = Realm.getDefaultInstance();
+            return realm;
+        }
     }
 
     public void closeRealm() {
@@ -33,11 +42,5 @@ public class RealmController {
             Realm.deleteRealm(realm.getConfiguration());
         }
     }
-
-
-    private RealmController() {
-        this.realm = Realm.getDefaultInstance();
-    }
-
 
 }
