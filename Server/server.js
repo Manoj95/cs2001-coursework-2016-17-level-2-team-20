@@ -26,27 +26,20 @@ app.use(bodyParser.json());
 // Use morgan to log requests to the console
 app.use(morgan('dev'));
 
-// Top route
 app.get('/', function(req, res) {
-	res.send('API @ http://localhost:' + port + '/api');
+    res.send('API @ http://localhost:' + port + '/api');
 });
 
-// API routes
 app.get('/setup', function(req, res) {
 
-	// Create a sample student
-	var student = new Student({ 
-		student_id: '1122334',
-		// Wont be this insecure when depolyed
-		password: 'testing'
-	});
+  var student = new Student({ 
+    student: 1111111
+  });
 
-	// Save the sample student
-	student.save(function(err) {
-		if (err) throw err;
-		console.log('Student saved successfully');
-		res.json({ success: true });
-	});
+  student.save(function(err) {
+    if (err) throw err;
+    res.json({ success: true });
+  });
 });
 
 var routes = express.Router(); 
@@ -55,14 +48,11 @@ routes.get('/', function(req, res) {
   res.json({ message: 'Notes API' });
 });
 
-// Route to return all users
 routes.get('/students', function(req, res) {
   Student.find({}, function(err, students) {
     res.json(students);
   });
 });   
 
-// Apply the routes to our application
 app.use('/api', routes);
-
 app.listen(port);

@@ -1,6 +1,6 @@
 {
   "name": "notes",
-  "description": "Notes server for the Brunel Planner app",
+  "description": "Notes API for the Brunel Planner app",
   "version": "0.1",
   "main": "server.js",
   "dependencies": {
