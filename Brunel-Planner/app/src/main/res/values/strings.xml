@@ -29,7 +29,7 @@
     <string name="about_name_daniel">Daniel Gubala</string>
     <string name="about_name_manoj">Manoj Chandrakumar</string>
     <string name="about_name_cristian">Cristian Rosu</string>
-    <string name="about_name_shaun">Shaun</string>
+
 
     <string name="about_name_language">Language Used:</string>
     <string name="about_name_java">Java</string>
@@ -45,9 +45,6 @@
 
     <string name="about_name_license">License:</string>
     <string name="about_name_licensetype">GNU GPLv3</string>
-
-
-
 
 </resources>
 
