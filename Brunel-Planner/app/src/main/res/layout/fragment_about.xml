@@ -4,10 +4,160 @@
     android:layout_height="match_parent"
     tools:context="g20.brunelplanner.views.activities.fragments.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ABOUT FRAGMENT" />
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/about_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_title"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"
+            android:textStyle="normal|bold|italic" />
+
+        <TextView
+            android:id="@+id/about_devs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_devs"
+            android:layout_below="@id/about_title"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/about_name_asha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_asha"
+            android:layout_below="@id/about_devs"
+            android:textColor="@color/black"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_orion"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_orion"
+            android:layout_below="@id/about_name_asha"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_cristian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_cristian"
+            android:layout_below="@id/about_name_orion"
+            android:textColor="@color/black"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_manoj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_manoj"
+            android:textColor="@color/black"
+            android:layout_below="@+id/about_name_cristian"
+            android:layout_alignParentStart="true"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_daniel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_daniel"
+            android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:fontFamily="monospace"
+            android:layout_below="@+id/about_name_manoj" />
+
+        <TextView
+            android:id="@+id/about_name_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_language"
+            android:layout_below="@id/about_name_daniel"
+            android:textColor="@color/black"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_java"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_java"
+            android:layout_below="@id/about_name_language"
+            android:textColor="@color/black"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_licensetype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_license"
+            android:layout_below="@id/about_name_java"
+            android:textColor="@color/black"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_GNU_GPLv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_licensetype"
+            android:layout_below="@id/about_name_licensetype"
+            android:textColor="@color/black"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_description"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"
+            android:layout_below="@+id/about_name_GNU_GPLv3"
+            android:layout_alignParentStart="true"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/about_name_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/about_name_version"
+            android:layout_below="@+id/about_name_descriptioninfo"
+            android:layout_alignParentStart="true"
+            android:fontFamily="monospace"
+            android:typeface="monospace"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/about_name_versionnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_versionnumber"
+            android:textColor="@color/black"
+            android:layout_below="@+id/about_name_version"
+            android:layout_alignParentStart="true"
+            android:fontFamily="monospace"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/about_name_descriptioninfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name_descriptioninfo"
+            android:textColor="@color/black"
+            android:typeface="monospace"
+            android:fontFamily="monospace"
+            android:layout_below="@+id/about_name_description"
+            android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
 
 </FrameLayout>
