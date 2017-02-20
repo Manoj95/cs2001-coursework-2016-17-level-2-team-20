@@ -2,8 +2,10 @@ package g20.brunelplanner.views.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -95,10 +97,26 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     // ButterKnife allows us to call methods like this
     @OnClick(R.id.btn_login)
     public void buttonLogin(View v) {
+        //This saves the studentID in the shared preference.
+        savePrefs(studentId.getText().toString());
+
+
         presenter.authStudent(
                 v,
                 studentId.getText().toString(),
                 studentPassword.getText().toString());
     }
+
+
+
+    private void savePrefs(String valueToSave){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString("StudentID", valueToSave);
+        edit.commit();
+    }
+
+
+
 
 }
