@@ -1,7 +1,9 @@
 package g20.brunelplanner.views.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    TextView StudentIDNav;
+
     protected RealmController realmController;
 
     @Override
@@ -52,6 +58,12 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         setDefault();
+
+        // Get the nav header views
+        View headerView = navigationView.getHeaderView(0);
+        StudentIDNav = (TextView) headerView.findViewById(R.id.nav_student_id);
+        //This changes the student id to the actual student ID.
+        loadPrefs();
 
     }
 
@@ -156,6 +168,13 @@ public class MainActivity extends AppCompatActivity
         // Set action bar title
         setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
+    private void loadPrefs() {
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        String studentIDNumber = sharedPreferences.
+                getString("StudentID", "StudentID");
+        StudentIDNav.setText(studentIDNumber);
 
+    }
 }
 
