@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import g20.brunelplanner.R;
 import g20.brunelplanner.models.planner.Timetable;
@@ -30,36 +32,49 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Timetable obj = getData().get(position);
-        holder.data = obj;
-        holder.activity.setText(obj.getActivity());
-        holder.room_and_type.setText(obj.getRoom() + " [" + obj.getType() + "]");
-        holder.staff.setText(obj.getStaff());
-
-        int[] weeks = new int[obj.getWeeks().size()];
-        for (int i = 0; i < obj.getWeeks().size(); i++) {
-            weeks[i] = obj.getWeeks().get(i).getVal();
+        Timetable data = getData().get(position);
+        holder.data = data;
+        String desc = data.getDescription();
+        if (!desc.isEmpty()) {
+            holder.activity.setText(data.getDescription());
+        } else {
+            holder.activity.setText(data.getActivity());
         }
 
-        holder.weeks.setText(Arrays.toString(weeks));
+        String staff = data.getStaff();
+
+        if (staff.isEmpty()) {
+            holder.type_and_staff.setText(data.getType());
+        } else {
+            List<String> fullName = Arrays.asList(staff.split(",[ ]*"));
+            Collections.reverse(fullName);
+            holder.type_and_staff
+                    .setText(data.getType() + " / " + fullName.get(0) + " " + fullName.get(1));
+        }
+
+        String time = data.getStart() + " - " + data.getEnd();
+        holder.time.setText(time);
+        holder.location.setText(data.getRoom());
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView activity;
-        TextView room_and_type;
-        TextView staff;
-        TextView weeks;
+        TextView type_and_staff;
+        TextView time;
+        TextView location;
+
         public Timetable data;
 
         MyViewHolder(View view) {
             super(view);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             activity = (TextView) view.findViewById(R.id.event_activity);
-            room_and_type = (TextView) view.findViewById(R.id.event_room_and_type);
-            staff = (TextView) view.findViewById(R.id.event_staff);
-            weeks = (TextView) view.findViewById(R.id.event_weeks);
+            type_and_staff = (TextView) view.findViewById(R.id.event_type_and_staff);
+            time = (TextView) view.findViewById(R.id.event_time);
+            location = (TextView) view.findViewById(R.id.event_location);
         }
 
         // Add more functions here
