@@ -22,6 +22,9 @@
     <string name="nav_drawer_about">About</string>
     <string name="nav_drawer_settings">Settings</string>
 
+    <!-- Help -->
+    <string name="open_contact_fragemnt">Contact</string>
+
     <!-- About -->
     <string name="about_title">Brunel Planner Application  \n </string>
     <string name="about_devs">Name of Developers:</string>
@@ -42,4 +45,14 @@
     <string name="about_name_license">License:</string>
     <string name="about_name_licensetype">GNU GPLv3\n</string>
 
+    <!--Contact Form-->
+    <string name="contact_form">Contact Us</string>
+    <string name="contact_form_name">Your Name</string>
+    <string name="contact_form_email">Your Email</string>
+    <string name="contact_form_subject">Subject</string>
+    <string name="contact_form_message">Message</string>
+    <string name="contact_form_button">Send Message</string>
+    <string name="contact_form_post_message">Please wait! We\'re sending your message to the support department...</string>
+    <string name="contact_posted">Your message has been successfully delivered.</string>
+  
 </resources>
