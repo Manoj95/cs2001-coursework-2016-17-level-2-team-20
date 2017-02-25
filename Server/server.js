@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var path = __dirname + '/views/';
 
 // Used to create, sign, and verify tokens
 var jwt = require('jsonwebtoken');
@@ -25,14 +26,19 @@ app.use(bodyParser.json());
 
 // Use morgan to log requests to the console
 app.use(morgan('dev'));
+app.use(express.static('views'))
 
 app.get('/', function(req, res) {
     res.send('API @ http://localhost:' + port + '/api');
 });
 
+app.get('/brunelplanner', function(req, res) {
+    res.sendFile(path + "index.html");
+});
+
 app.get('/setup', function(req, res) {
 
-  var student = new Student({ 
+  var student = new Student({
     student: 1111111
   });
 
@@ -42,7 +48,7 @@ app.get('/setup', function(req, res) {
   });
 });
 
-var routes = express.Router(); 
+var routes = express.Router();
 
 routes.get('/', function(req, res) {
   res.json({ message: 'Notes API' });
@@ -52,7 +58,7 @@ routes.get('/students', function(req, res) {
   Student.find({}, function(err, students) {
     res.json(students);
   });
-});   
+});
 
 app.use('/api', routes);
 app.listen(port);
