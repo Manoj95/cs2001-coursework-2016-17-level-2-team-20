@@ -31,17 +31,6 @@ var studentSchema = new Schema({
   notes: [noteSchema]
 });
 
-//
-// // Set up a mongoose model and pass it using module.exports
-// module.exports = mongoose.model('Student', new Schema({
-// 	student: {
-// 		type: Number,
-// 		required: true,
-// 		unique: true
-// 	},
-//     notes: [noteSchema]
-// }));
-
 // Saves the user's password hashed (plain text password storage is not good)
 studentSchema.pre('save', function (next) {
   var user = this;
