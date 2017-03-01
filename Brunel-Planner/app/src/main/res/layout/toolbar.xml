@@ -7,5 +7,7 @@
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:background="?attr/colorPrimary"
-    app:popupTheme="@style/AppTheme.PopupOverlay">
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
+
 </android.support.v7.widget.Toolbar>

@@ -3,9 +3,13 @@ package g20.brunelplanner.views.activities.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,7 +40,7 @@ public class TimetableFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
         recyclerView.setAdapter(new RecyclerViewAdapter(this,
-                realmController.getRealm().where(Timetable.class).findAllAsync()));
+                realmController.getRealm().where(Timetable.class).equalTo("weeks.val", 12).findAllAsync()));
         recyclerView.setHasFixedSize(true);
     }
 
@@ -46,8 +50,22 @@ public class TimetableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
+
+        try {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Week 22");
+        } catch (NullPointerException e) {
+            Log.e("TimetableFragment", "onCreateView: ", e);
+        }
+
         setUpRecyclerView();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_timetable, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
