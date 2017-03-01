@@ -37,12 +37,13 @@ public class HelpFragment extends Fragment {
 
     @OnClick(R.id.open_contact_fragment)
     public void openContact() {
-        ContactFragment nextFrag = new ContactFragment();
+        ContactFragment contactFrag = new ContactFragment();
         this.getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, nextFrag, "Contact Us")
-                .addToBackStack(null)
+                .replace(R.id.fragment_container, contactFrag, "Contact Us")
+                .addToBackStack("contact")
                 .commit();
     }
+
     @OnClick(R.id.open_faq_fragment)
         public void openFAQ() {
             FAQFragment nextFrag = new FAQFragment();

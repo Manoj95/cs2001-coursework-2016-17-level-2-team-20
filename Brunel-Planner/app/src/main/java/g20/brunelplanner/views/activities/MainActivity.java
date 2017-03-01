@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity
         // Set action bar title
         setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
+
     private void loadPrefs() {
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
@@ -176,5 +177,13 @@ public class MainActivity extends AppCompatActivity
         StudentIDNav.setText(studentIDNumber);
 
     }
-}
 
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+}
