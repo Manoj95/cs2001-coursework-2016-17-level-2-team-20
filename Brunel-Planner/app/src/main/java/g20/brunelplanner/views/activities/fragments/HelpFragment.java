@@ -18,6 +18,9 @@ public class HelpFragment extends Fragment {
     @BindView(R.id.open_contact_fragment)
     Button open_contact;
 
+    @BindView(R.id.open_faq_fragment)
+    Button open_faq;
+
     public HelpFragment() {
         // Required empty public constructor
     }
@@ -39,6 +42,14 @@ public class HelpFragment extends Fragment {
                 .replace(R.id.fragment_container, nextFrag, "Contact Us")
                 .addToBackStack(null)
                 .commit();
+    }
+    @OnClick(R.id.open_faq_fragment)
+        public void openFAQ() {
+            FAQFragment nextFrag = new FAQFragment();
+            this.getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, nextFrag, "FAQ")
+                    .addToBackStack(null)
+                    .commit();
     }
 
 }
