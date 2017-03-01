@@ -40,12 +40,9 @@ public class ContactFragment extends Fragment {
     @BindView(R.id.post_message)
     Button email;
 
-
-
     public ContactFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +56,7 @@ public class ContactFragment extends Fragment {
     }
 
     @OnClick(R.id.post_message)
-    public void buttonPostMessage(View view){
+    public void buttonPostMessage(){
 
         String name = YourName.getText().toString();
         String email = YourEmail.getText().toString();
@@ -93,22 +90,20 @@ public class ContactFragment extends Fragment {
 
         Intent sendEmail = new Intent(android.content.Intent.ACTION_SEND);
 
-            /* Fill it with Data */
+        /* Fill it with Data */
         sendEmail.setType("plain/text");
         sendEmail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"1514850@my.brunel.ac.uk"});
         sendEmail.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
         sendEmail.putExtra(android.content.Intent.EXTRA_TEXT,
                 "name:"+name+'\n'+"Email ID:"+email+'\n'+"Message:"+'\n'+message);
 
-            /* Send it off to the Activity-Chooser */
+        /* Send it off to the Activity-Chooser */
         startActivity(Intent.createChooser(sendEmail, "Send mail..."));
 
 
     }
 
-
-    // validating email id
-
+    // Validating email id
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
