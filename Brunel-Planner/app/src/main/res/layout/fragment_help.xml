@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +10,11 @@
         android:layout_height="wrap_content"
         android:text="@string/open_contact_fragemnt"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/open_faq_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FAQ"
+        android:layout_below="@+id/open_contact_fragment"/>
+
+</RelativeLayout>

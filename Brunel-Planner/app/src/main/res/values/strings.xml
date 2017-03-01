@@ -24,6 +24,7 @@
 
     <!-- Help -->
     <string name="open_contact_fragemnt">Contact</string>
+    <string name="open_faq_fragment">FAQ</string>
 
     <!-- About -->
     <string name="about_title">Brunel Planner Application  \n </string>
@@ -55,4 +56,10 @@
     <string name="contact_form_post_message">Please wait! We\'re sending your message to the support department...</string>
     <string name="contact_posted">Your message has been successfully delivered.</string>
   
+    <!-- FAQ -->
+    <string name="faq_title">Frequently Asked Questions\n</string>
+    <string name="faq_q1">\nWhat is Brunel Planner?\n</string>
+    <string name="faq_a1">It is an app that allows students to keep track of their current timetable in a mobile friendly format. The app allows users to customise features to add specific events alongside saving any relevant details such as lecture notes. \n</string>
+    <string name="faq_q2">Which platforms support Brunel Planner?\n</string>
+    <string name="faq_a2">Brunel Planner supports Android. We plan to expand the platform to iPhone, iPad and Blackberry in the nearest future.\n</string>
 </resources>
