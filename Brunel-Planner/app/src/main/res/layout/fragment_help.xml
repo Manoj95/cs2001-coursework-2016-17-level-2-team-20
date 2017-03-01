@@ -8,7 +8,7 @@
         android:id="@+id/open_contact_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/open_contact_fragemnt"/>
+        android:text="@string/open_contact_fragment"/>
 
     <Button
         android:id="@+id/open_faq_fragment"

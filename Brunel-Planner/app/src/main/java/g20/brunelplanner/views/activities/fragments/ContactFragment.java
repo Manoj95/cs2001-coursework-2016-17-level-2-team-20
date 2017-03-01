@@ -2,6 +2,7 @@ package g20.brunelplanner.views.activities.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,35 +11,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import g20.brunelplanner.R;
 
-import static g20.brunelplanner.R.id.your_email;
-import static g20.brunelplanner.R.id.your_message;
-import static g20.brunelplanner.R.id.your_name;
-import static g20.brunelplanner.R.id.your_subject;
-
 public class ContactFragment extends Fragment {
 
-    @BindView(your_name)
-    EditText YourName;
+    @BindView(R.id.contact_name_wrapper)
+    TextInputLayout emailNameWrapper;
+    @BindView(R.id.contact_name)
+    EditText emailName;
 
-    @BindView(your_email)
-    EditText YourEmail;
+    @BindView(R.id.contact_subject_wrapper)
+    TextInputLayout emailSubjectWrapper;
+    @BindView(R.id.contact_subject)
+    EditText emailSubject;
 
-    @BindView(your_subject)
-    EditText YourSubject;
+    @BindView(R.id.contact_message_wrapper)
+    TextInputLayout emailMessageWrapper;
+    @BindView(R.id.contact_message)
+    EditText emailMessage;
 
-    @BindView(your_message)
-    EditText YourMessage;
-
-    @BindView(R.id.post_message)
-    Button email;
+    @BindView(R.id.send_message)
+    Button sendEmail;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -48,71 +44,56 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        ButterKnife.bind(this,view);
-
+        ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
         return view;
 
     }
 
-    @OnClick(R.id.post_message)
+    @OnClick(R.id.send_message)
     public void buttonPostMessage(){
 
-        String name = YourName.getText().toString();
-        String email = YourEmail.getText().toString();
-        String subject = YourSubject.getText().toString();
-        String message = YourMessage.getText().toString();
+        String name = emailName.getText().toString();
+        String subject = emailSubject.getText().toString();
+        String message = emailMessage.getText().toString();
 
         if (TextUtils.isEmpty(name)){
-            YourName.setError("Enter Your Name");
-            YourName.requestFocus();
+            emailNameWrapper.setError("Enter Your Name");
+            emailName.requestFocus();
             return;
-        }
-
-        Boolean onError = false;
-        if (!isValidEmail(email)) {
-            onError = true;
-            YourEmail.setError("Invalid Email");
-            return;
+        } else {
+            emailNameWrapper.setErrorEnabled(false);
         }
 
         if (TextUtils.isEmpty(subject)){
-            YourSubject.setError("Enter Your Subject");
-            YourSubject.requestFocus();
+            emailSubjectWrapper.setError("Enter Your Subject");
+            emailSubject.requestFocus();
             return;
+        } else {
+            emailSubjectWrapper.setErrorEnabled(false);
         }
 
         if (TextUtils.isEmpty(message)){
-            YourMessage.setError("Enter Your Message");
-            YourMessage.requestFocus();
+            emailMessageWrapper.setError("Enter Your Message");
+            emailMessage.requestFocus();
             return;
+        } else {
+            emailMessageWrapper.setErrorEnabled(false);
         }
 
         Intent sendEmail = new Intent(android.content.Intent.ACTION_SEND);
 
-        /* Fill it with Data */
+        // Fill it with Data
         sendEmail.setType("plain/text");
-        sendEmail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"1514850@my.brunel.ac.uk"});
+        sendEmail.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[]{"1514850@my.brunel.ac.uk"});
         sendEmail.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
         sendEmail.putExtra(android.content.Intent.EXTRA_TEXT,
-                "name:"+name+'\n'+"Email ID:"+email+'\n'+"Message:"+'\n'+message);
+                "Name: " + name + "\nMessage:\n" + message);
 
-        /* Send it off to the Activity-Chooser */
-        startActivity(Intent.createChooser(sendEmail, "Send mail..."));
-
+        // Send it off to the activity chooser
+        startActivity(Intent.createChooser(sendEmail, "Send Email"));
 
     }
-
-    // Validating email id
-    private boolean isValidEmail(String email) {
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-
 
 }

@@ -23,7 +23,7 @@
     <string name="nav_drawer_settings">Settings</string>
 
     <!-- Help -->
-    <string name="open_contact_fragemnt">Contact</string>
+    <string name="open_contact_fragment">Contact</string>
     <string name="open_faq_fragment">FAQ</string>
 
     <!-- About -->
@@ -49,12 +49,9 @@
     <!--Contact Form-->
     <string name="contact_form">Contact Us</string>
     <string name="contact_form_name">Your Name</string>
-    <string name="contact_form_email">Your Email</string>
     <string name="contact_form_subject">Subject</string>
     <string name="contact_form_message">Message</string>
-    <string name="contact_form_button">Send Message</string>
-    <string name="contact_form_post_message">Please wait! We\'re sending your message to the support department...</string>
-    <string name="contact_posted">Your message has been successfully delivered.</string>
+    <string name="contact_form_button">Send Email</string>
   
     <!-- FAQ -->
     <string name="faq_title">Frequently Asked Questions\n</string>
