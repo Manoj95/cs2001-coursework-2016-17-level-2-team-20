@@ -25,6 +25,7 @@ import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
+import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.ModulesFragment;
 import g20.brunelplanner.views.activities.fragments.NotesFragment;
 import g20.brunelplanner.views.activities.fragments.SettingsFragment;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
+    public static boolean count;
     TextView StudentIDNav;
 
     protected RealmController realmController;
@@ -109,6 +110,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_modules:
                 fragmentClass = ModulesFragment.class;
+                break;
+            case R.id.nav_maps:
+                fragmentClass = MapFragment.class;
+                count = true;
                 break;
             case R.id.nav_custom_events:
                 fragmentClass = CustomEventsFragment.class;
