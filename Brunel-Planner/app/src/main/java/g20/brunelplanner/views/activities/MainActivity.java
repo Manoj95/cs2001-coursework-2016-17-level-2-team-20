@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
+import g20.brunelplanner.maps.Locations;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
@@ -160,6 +161,8 @@ public class MainActivity extends AppCompatActivity
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            Locations.writing_into_database();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,11 +12,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.models.planner.Timetable;
@@ -27,15 +25,13 @@ public class TimetableFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.event_location)
-    Button open_maps;
 
     protected RealmController realmController;
 
     public TimetableFragment() {
         // ...
     }
-    /* jdsfshkjfshdkjfhskudhfuisdhfuishduhsiudfh   */
+
     private void setUpRecyclerView() {
         // There may be a better way to init this
         realmController = RealmController.getInstance();
@@ -60,11 +56,9 @@ public class TimetableFragment extends Fragment {
         } catch (NullPointerException e) {
             Log.e("TimetableFragment", "onCreateView: ", e);
         }
-
-
-
         setUpRecyclerView();
         return view;
+
     }
 
 
@@ -79,10 +73,4 @@ public class TimetableFragment extends Fragment {
         super.onDestroyView();
         realmController.closeRealm();
     }
-
-
-
-
-
-
 }

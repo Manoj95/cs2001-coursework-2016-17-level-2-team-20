@@ -1,26 +1,29 @@
 package g20.brunelplanner.views.activities.adapters;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import g20.brunelplanner.R;
 import g20.brunelplanner.models.planner.Timetable;
+import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
+
+import static g20.brunelplanner.controllers.databases.RealmController.realm;
+import static g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter.MyViewHolder.location;
 
 
 public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
@@ -60,45 +63,51 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
 
         String time = data.getStart() + " - " + data.getEnd();
         holder.time.setText(time);
-        holder.location.setText(data.getRoom());
+        location.setText(data.getRoom());
+
 
 
 
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView activity;
         TextView type_and_staff;
         TextView time;
-        Button location;
+        public static TextView location;
+        public static String locationtemp;
 
-        @BindView(R.id.event_location)
-        Button open_maps;
-        @OnClick(R.id.event_location)
-        public void openMAPS() {
-            MapFragment openmaps = new MapFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, openmaps, "Maps")
-                    .addToBackStack("null")
-                    .commit();
-        }
+
         public Timetable data;
 
-        MyViewHolder(View view) {
+        public MyViewHolder(View view) {
             super(view);
+            realm = Realm.getDefaultInstance();
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             activity = (TextView) view.findViewById(R.id.event_activity);
             type_and_staff = (TextView) view.findViewById(R.id.event_type_and_staff);
             time = (TextView) view.findViewById(R.id.event_time);
-            location = (Button) view.findViewById(R.id.event_location);
+            location = (TextView) view.findViewById(R.id.event_location);
 
+            itemView.setOnClickListener(new View.OnClickListener(){
+                                            @Override
+                                            public void onClick(View view){
+                                                locationtemp = String.valueOf(location.getText());
+                                                MainActivity.count = false;
+                                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                                Fragment myFragment = new MapFragment();
+                                                activity.getSupportFragmentManager().beginTransaction()
+                                                        .replace(R.id.fragment_container, myFragment)
+                                                        .addToBackStack(null)
+                                                        .commit();
+                                            }
 
-        }
-
-        // Add more functions here
-    }
+                                         });
+                                // Add more functions here
+                        }
+                }
 
 
 

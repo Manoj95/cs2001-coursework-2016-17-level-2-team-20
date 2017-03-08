@@ -50,14 +50,13 @@
                 android:layout_below="@id/hr"
                 android:textColor="@color/black" />
 
-            <Button
+            <TextView
                 android:id="@+id/event_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hr"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/black"
-                android:onClick="openMAPS"/>
+                android:textColor="@color/black" />
 
         </RelativeLayout>
 
