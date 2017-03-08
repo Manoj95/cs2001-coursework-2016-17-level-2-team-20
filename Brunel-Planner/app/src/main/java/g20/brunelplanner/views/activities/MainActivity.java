@@ -31,6 +31,7 @@ import g20.brunelplanner.views.activities.fragments.ModulesFragment;
 import g20.brunelplanner.views.activities.fragments.NotesFragment;
 import g20.brunelplanner.views.activities.fragments.SettingsFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,9 +40,9 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-    public static boolean count;
-    TextView StudentIDNav;
 
+    TextView StudentIDNav;
+    public static boolean count;
     protected RealmController realmController;
 
     @Override
@@ -161,8 +162,9 @@ public class MainActivity extends AppCompatActivity
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            Realm locationsDB = Realm.getDefaultInstance();
             Locations.writing_into_database();
-
+            locationsDB.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

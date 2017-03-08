@@ -23,9 +23,9 @@ import g20.brunelplanner.R;
 import g20.brunelplanner.maps.Locations;
 import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
+import io.realm.Realm;
 
 import static g20.brunelplanner.R.id.map;
-import static g20.brunelplanner.controllers.databases.RealmController.realm;
 
 
 public class MapFragment extends Fragment {
@@ -58,18 +58,19 @@ public class MapFragment extends Fragment {
                         //googleMap.setMyLocationEnabled(true);
                         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                         } else {
+                        Realm locationsDB = Realm.getDefaultInstance();
                         double lat1;
                         double longit1;
                         Locations object;
-                        object = Locations.queryDB( realm, RecyclerViewAdapter.MyViewHolder.locationtemp);
+                        object = Locations.queryDB( locationsDB, RecyclerViewAdapter.locationtemp);
                         lat1 = object.getLat();
                         longit1 = object.getLongit();
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( lat1, longit1), 16.0f));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( lat1, longit1), 18.0f));
                         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                         final LatLng MARKER = new LatLng( lat1, longit1);
                         Marker marker = googleMap.addMarker(new MarkerOptions()
                                 .position(MARKER));
-
+                        locationsDB.close();
 
                         //googleMap.setMyLocationEnabled(true);
                     }

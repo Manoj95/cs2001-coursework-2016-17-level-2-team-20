@@ -19,16 +19,11 @@ import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
 import io.realm.OrderedRealmCollection;
-import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
-
-import static g20.brunelplanner.controllers.databases.RealmController.realm;
-import static g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter.MyViewHolder.location;
-
 
 public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
         RecyclerViewAdapter.MyViewHolder> {
-
+    public static String locationtemp;
     public RecyclerViewAdapter(TimetableFragment activity, OrderedRealmCollection<Timetable> data) {
         super(activity.getActivity().getApplicationContext(), data, true);
     }
@@ -37,8 +32,8 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MyViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false));
-
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Timetable data = getData().get(position);
@@ -63,10 +58,7 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
 
         String time = data.getStart() + " - " + data.getEnd();
         holder.time.setText(time);
-        location.setText(data.getRoom());
-
-
-
+        holder.location.setText(data.getRoom());
 
     }
 
@@ -76,15 +68,13 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
         TextView activity;
         TextView type_and_staff;
         TextView time;
-        public static TextView location;
-        public static String locationtemp;
+        TextView location;
 
 
         public Timetable data;
 
         public MyViewHolder(View view) {
             super(view);
-            realm = Realm.getDefaultInstance();
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             activity = (TextView) view.findViewById(R.id.event_activity);
             type_and_staff = (TextView) view.findViewById(R.id.event_type_and_staff);
@@ -92,23 +82,21 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
             location = (TextView) view.findViewById(R.id.event_location);
 
             itemView.setOnClickListener(new View.OnClickListener(){
-                                            @Override
-                                            public void onClick(View view){
-                                                locationtemp = String.valueOf(location.getText());
-                                                MainActivity.count = false;
-                                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                                                Fragment myFragment = new MapFragment();
-                                                activity.getSupportFragmentManager().beginTransaction()
-                                                        .replace(R.id.fragment_container, myFragment)
-                                                        .addToBackStack(null)
-                                                        .commit();
-                                            }
-
-                                         });
-                                // Add more functions here
-                        }
+                @Override
+                public void onClick(View view){
+                        locationtemp = String.valueOf(location.getText());
+                        MainActivity.count = false;
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        Fragment myFragment = new MapFragment();
+                        activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, myFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
 
+            });
+        }
 
-
+        // Add more functions here
+    }
 }

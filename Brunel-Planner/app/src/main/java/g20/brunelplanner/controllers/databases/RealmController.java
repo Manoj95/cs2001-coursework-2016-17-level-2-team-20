@@ -18,7 +18,7 @@ public class RealmController {
         return mInstance;
     }
 
-    public Realm getRealm() {
+    public static Realm getRealm() {
         if (realm != null) {
             return realm;
         } else {
@@ -27,7 +27,7 @@ public class RealmController {
         }
     }
 
-    public void closeRealm() {
+    public static void closeRealm() {
         if (realm != null) {
             realm.close();
             mInstance = null;

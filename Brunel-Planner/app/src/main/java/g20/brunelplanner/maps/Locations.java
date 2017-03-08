@@ -10,7 +10,6 @@ import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 import static android.text.TextUtils.substring;
-import static g20.brunelplanner.controllers.databases.RealmController.realm;
 import static io.realm.Case.INSENSITIVE;
 
 public class Locations extends RealmObject {
@@ -24,7 +23,7 @@ public class Locations extends RealmObject {
     @SerializedName("id")
     private int id;
     @SerializedName("room")
-    private static String room;
+    private String room;
     @SerializedName("building")
     private String building;
     @SerializedName("lat")
@@ -76,22 +75,24 @@ public class Locations extends RealmObject {
     }
 
     public static Locations queryDB(Realm realm1, String locations1) {
-
+        //Realm locationsDB = Realm.getDefaultInstance();
         Locations object;
         String rooms = locations1;
-        String first2chars = substring(rooms, 0, 3);
+        String first2chars = substring(rooms, 0, 2);
         RealmResults<Locations> result = realm1.where(Locations.class)
-                .beginsWith(room, first2chars, INSENSITIVE)
+                .beginsWith("room", first2chars, INSENSITIVE)
                 .findAll();
         object = result.first();
+        //locationsDB.close();
         return object;
+
     }
     public static void save_into_database(final int id, final String room, final String building, final double lat, final double longit){
-        realm = Realm.getDefaultInstance();
-        realm.executeTransactionAsync(new Realm.Transaction() {
+        Realm locationsDB = Realm.getDefaultInstance();
+        locationsDB.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
-                Locations locations = realm.createObject(Locations.class, id);
+            public void execute(Realm locationsDB) {
+                Locations locations = locationsDB.createObject(Locations.class, id);
                 locations.setRoom(room);
                 locations.setBuilding(building);
                 locations.setLat(lat);
@@ -108,12 +109,14 @@ public class Locations extends RealmObject {
                 Log.e("NO", error.getMessage());
             }
         });
+        locationsDB.close();
     }
     public static void writing_into_database() {
-        Locations.save_into_database(1,"Le","Lecture Center", 51.533133, -0.472878);
-        Locations.save_into_database(2,"Le","Halsbury", 51.533824, -0.472942);
+        Realm locationsDB = Realm.getDefaultInstance();
+        Locations.save_into_database(1,"LE","Lecture Center", 51.533133, -0.472878);
+        Locations.save_into_database(2,"HA","Halsbury", 51.533824, -0.472942);
         Locations.save_into_database(3,"ST","ST Johns", 51.534514, -0.469374);
-
+        locationsDB.close();
     }
 
 }

@@ -18,6 +18,7 @@ public class BPApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initRealmConfiguration();
+        initRealmConfiguration1();
         initializeStetho(this);
 
     }
@@ -29,7 +30,14 @@ public class BPApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(base);
-
+        // Starts te Realm db for the locations
+    }
+    private void initRealmConfiguration1() {
+        Realm.init(this);
+        RealmConfiguration locationsDB = new RealmConfiguration.Builder()
+                .name("LOCATIONSDB.realm")
+                .build();
+        //Realm.setDefaultConfiguration(locationsDB);
     }
     private void initializeStetho(final BPApplication context) {
 
