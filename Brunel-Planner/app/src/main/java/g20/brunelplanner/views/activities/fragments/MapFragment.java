@@ -1,12 +1,9 @@
 package g20.brunelplanner.views.activities.fragments;
 
-/**
- * Created by rosuc on 3/2/2017.
- */
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +17,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import g20.brunelplanner.R;
-import g20.brunelplanner.maps.Locations;
+import g20.brunelplanner.controllers.databases.MapService;
 import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
-import io.realm.Realm;
 
 import static g20.brunelplanner.R.id.map;
 
@@ -54,25 +50,20 @@ public class MapFragment extends Fragment {
                 public void onMapReady(final GoogleMap googleMap) {
                     if (MainActivity.count) {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.533074, -0.475620), 16.0f));
-                        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                        //googleMap.setMyLocationEnabled(true);
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                         } else {
-                        Realm locationsDB = Realm.getDefaultInstance();
-                        double lat1;
-                        double longit1;
-                        Locations object;
-                        object = Locations.queryDB( locationsDB, RecyclerViewAdapter.locationtemp);
-                        lat1 = object.getLat();
-                        longit1 = object.getLongit();
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( lat1, longit1), 18.0f));
-                        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                        final LatLng MARKER = new LatLng( lat1, longit1);
+                        double[] object = MapService.queryDB(RecyclerViewAdapter.locationtemp);
+                        double mapLat = object[0];
+                        double mapLong = object[1];
+                        Log.d("Map", "onMapReady: " + mapLat);
+                        Log.d("Map", "onMapReady: " + mapLong);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mapLat, mapLong), 18.0f));
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                        final LatLng MARKER = new LatLng( mapLat, mapLong);
                         Marker marker = googleMap.addMarker(new MarkerOptions()
                                 .position(MARKER));
-                        locationsDB.close();
 
-                        //googleMap.setMyLocationEnabled(true);
                     }
                 }
             });

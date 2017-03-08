@@ -23,7 +23,9 @@ import io.realm.RealmRecyclerViewAdapter;
 
 public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
         RecyclerViewAdapter.MyViewHolder> {
+
     public static String locationtemp;
+
     public RecyclerViewAdapter(TimetableFragment activity, OrderedRealmCollection<Timetable> data) {
         super(activity.getActivity().getApplicationContext(), data, true);
     }

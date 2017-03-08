@@ -22,7 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
-import g20.brunelplanner.maps.Locations;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
@@ -31,7 +30,6 @@ import g20.brunelplanner.views.activities.fragments.ModulesFragment;
 import g20.brunelplanner.views.activities.fragments.NotesFragment;
 import g20.brunelplanner.views.activities.fragments.SettingsFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
-import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -162,9 +160,6 @@ public class MainActivity extends AppCompatActivity
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
-            Realm locationsDB = Realm.getDefaultInstance();
-            Locations.writing_into_database();
-            locationsDB.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,7 +5,7 @@ import io.realm.Realm;
 public class RealmController {
 
     private static RealmController mInstance;
-    public static Realm realm;
+    public Realm realm;
 
     private RealmController() {
         // ...
@@ -18,7 +18,7 @@ public class RealmController {
         return mInstance;
     }
 
-    public static Realm getRealm() {
+    public Realm getRealm() {
         if (realm != null) {
             return realm;
         } else {
@@ -27,7 +27,7 @@ public class RealmController {
         }
     }
 
-    public static void closeRealm() {
+    public void closeRealm() {
         if (realm != null) {
             realm.close();
             mInstance = null;
