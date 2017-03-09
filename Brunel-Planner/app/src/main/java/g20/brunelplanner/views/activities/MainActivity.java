@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case R.id.action_settings:
+                openSettings();
                 return true;
             case R.id.action_logout:
                 realmController = RealmController.getInstance();
@@ -186,4 +187,26 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    private void openSettings() {
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = SettingsFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        navigationView.getMenu().findItem(R.id.nav_settings).setChecked(true);
+        // Set action bar title
+        setTitle(navigationView.getMenu().findItem(R.id.nav_settings).getTitle());
+    }
+
 }
