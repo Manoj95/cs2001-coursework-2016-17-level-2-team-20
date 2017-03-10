@@ -25,6 +25,7 @@
     <!-- Help -->
     <string name="open_contact_fragment">Contact</string>
     <string name="open_faq_fragment">FAQ</string>
+    <string name="faq_header">Frequently Asked Questions</string>
 
     <!-- About -->
     <string name="about_title">Brunel Planner Application  \n </string>

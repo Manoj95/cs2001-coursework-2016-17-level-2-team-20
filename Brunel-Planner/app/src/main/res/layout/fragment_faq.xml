@@ -8,11 +8,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
@@ -20,52 +15,52 @@
             android:layout_height="wrap_content"
             android:padding="18dp">
 
-        <TextView
-        android:id="@+id/faq_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Frequently Asked Questions"
-        android:textColor="@color/black"
-        android:fontFamily="monospace"
-        android:textStyle="normal|bold|italic"/>
+            <TextView
+                android:id="@+id/faq_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_header"
+                android:textColor="@color/black"
+                android:textStyle="normal|bold|italic"
+                android:typeface="normal" />
 
-        <TextView
-            android:id="@+id/faq_q1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/faq_q1"
-            android:layout_below="@id/faq_title"
-            android:textColor="@color/black"
-            android:fontFamily="monospace"
-            android:textStyle="normal|bold" />
+            <TextView
+                android:id="@+id/faq_q1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/faq_title"
+                android:text="@string/faq_q1"
+                android:textColor="@color/black"
+                android:textStyle="normal|bold"
+                android:typeface="normal" />
 
-        <TextView
-            android:id="@+id/faq_a1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/faq_a1"
-            android:layout_below="@id/faq_q1"
-            android:textColor="@color/black"
-            android:fontFamily="monospace" />
+            <TextView
+                android:id="@+id/faq_a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/faq_q1"
+                android:text="@string/faq_a1"
+                android:textColor="@color/black"
+                android:typeface="normal" />
 
-        <TextView
-            android:id="@+id/faq_q2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/faq_q2"
-            android:layout_below="@id/faq_a1"
-            android:textColor="@color/black"
-            android:fontFamily="monospace"
-            android:textStyle="normal|bold" />
+            <TextView
+                android:id="@+id/faq_q2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/faq_a1"
+                android:text="@string/faq_q2"
+                android:textColor="@color/black"
+                android:textStyle="normal|bold"
+                android:typeface="normal" />
 
-        <TextView
-            android:id="@+id/faq_a2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/faq_a2"
-            android:layout_below="@id/faq_q2"
-            android:textColor="@color/black"
-            android:fontFamily="monospace" />
+            <TextView
+                android:id="@+id/faq_a2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/faq_q2"
+                android:text="@string/faq_a2"
+                android:textColor="@color/black"
+                android:typeface="normal" />
 
     </RelativeLayout>
     </ScrollView>
