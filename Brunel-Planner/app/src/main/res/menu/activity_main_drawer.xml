@@ -12,8 +12,8 @@
             android:title="@string/nav_drawer_modules" />
         <item
             android:id="@+id/nav_buildings"
-            android:icon="@drawable/ic_view_maps_black_48dp"
-            android:title="University main buildings" />
+            android:icon="@drawable/ic_map_black_48dp"
+            android:title="@string/nav_drawer_buildings" />
         <item
             android:id="@+id/nav_custom_events"
             android:icon="@drawable/ic_event_black_48dp"
@@ -35,6 +35,5 @@
             android:icon="@drawable/ic_help_outline_black_48dp"
             android:title="@string/nav_drawer_help" />
     </group>
-
 
 </menu>
