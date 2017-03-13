@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    TextView StudentIDNav;
-
     protected RealmController realmController;
 
     @Override
@@ -57,13 +55,13 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        setDefault();
 
-        // Get the nav header views
-        View headerView = navigationView.getHeaderView(0);
-        StudentIDNav = (TextView) headerView.findViewById(R.id.nav_student_id);
+        if (savedInstanceState == null) {
+            setDefault();
+        }
+
         //This changes the student id to the actual student ID.
-        loadPrefs();
+        setStudentId();
 
     }
 
@@ -169,13 +167,14 @@ public class MainActivity extends AppCompatActivity
         setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
 
-    private void loadPrefs() {
+    private void setStudentId() {
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView studentId = (TextView) headerView.findViewById(R.id.nav_student_id);
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        String studentIDNumber = sharedPreferences.
-                getString("StudentID", "StudentID");
-        StudentIDNav.setText(studentIDNumber);
 
+        studentId.setText(sharedPreferences.getString("studentId", "Planner"));
     }
 
     @Override
