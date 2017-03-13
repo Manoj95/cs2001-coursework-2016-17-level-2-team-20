@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
+import g20.brunelplanner.views.activities.fragments.BuildingsFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
-import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.ModulesFragment;
 import g20.brunelplanner.views.activities.fragments.NotesFragment;
 import g20.brunelplanner.views.activities.fragments.SettingsFragment;
@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_modules:
                 fragmentClass = ModulesFragment.class;
                 break;
-            case R.id.nav_maps:
-                fragmentClass = MapFragment.class;
+            case R.id.nav_buildings:
+                fragmentClass = BuildingsFragment.class;
                 count = true;
                 break;
             case R.id.nav_custom_events:

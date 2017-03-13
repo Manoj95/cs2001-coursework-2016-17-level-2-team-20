@@ -18,15 +18,15 @@ import g20.brunelplanner.models.planner.Timetable;
 import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
-import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
+import io.realm.RealmResults;
 
 public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
         RecyclerViewAdapter.MyViewHolder> {
 
     public static String locationtemp;
 
-    public RecyclerViewAdapter(TimetableFragment activity, OrderedRealmCollection<Timetable> data) {
+    public RecyclerViewAdapter(TimetableFragment activity, RealmResults<Timetable> data) {
         super(activity.getActivity().getApplicationContext(), data, true);
     }
 

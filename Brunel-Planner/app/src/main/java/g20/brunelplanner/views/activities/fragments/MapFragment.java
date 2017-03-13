@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.MapService;
 import g20.brunelplanner.views.activities.MainActivity;
+import g20.brunelplanner.views.activities.adapters.BuildingsAdapter;
 import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
 
 import static g20.brunelplanner.R.id.map;
@@ -49,11 +50,20 @@ public class MapFragment extends Fragment {
                 @Override
                 public void onMapReady(final GoogleMap googleMap) {
                     if (MainActivity.count) {
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.533074, -0.475620), 16.0f));
+                        double[] object = MapService.queryBuildingsDB(BuildingsAdapter.buildingtemp);
+                        double mapLat = object[0];
+                        double mapLong = object[1];
+                        Log.d("Map", "onMapReady: " + mapLat);
+                        Log.d("Map", "onMapReady: " + mapLong);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mapLat, mapLong), 18.0f));
                         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                        final LatLng MARKER = new LatLng( mapLat, mapLong);
+                        Marker marker = googleMap.addMarker(new MarkerOptions()
+                                .position(MARKER));
+
+
                         } else {
-                        double[] object = MapService.queryDB(RecyclerViewAdapter.locationtemp);
+                        double[] object = MapService.queryRoomsDB(RecyclerViewAdapter.locationtemp);
                         double mapLat = object[0];
                         double mapLong = object[1];
                         Log.d("Map", "onMapReady: " + mapLat);

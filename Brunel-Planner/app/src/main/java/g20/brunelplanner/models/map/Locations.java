@@ -3,6 +3,7 @@ package g20.brunelplanner.models.map;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
 
 public class Locations extends RealmObject {
@@ -18,7 +19,9 @@ public class Locations extends RealmObject {
     private int id;
     @SerializedName("room")
     private String room;
+
     @SerializedName("building")
+    @Index
     private String building;
     @SerializedName("lat")
     private double lat;
