@@ -3,12 +3,11 @@
     package="g20.brunelplanner">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="your.application.package.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -49,16 +48,12 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA_EsnS1Mh92aAWyeoBvK7P-ID01f6uq-Y" />
+            android:value="AIzaSyDE6h36eNjBH7gmZiw2GOftmiPPI5rjHk4" />
 
         <fragment
             android:name=".views.activities.fragments.MapFragment"
             android:label="@string/title_activity_maps" />
 
-        <activity
-            android:name=".views.activities.fragments.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
