@@ -90,6 +90,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showTimetable() {
+        //This saves the studentID in the shared preference.
+        saveStudentId(studentId.getText().toString());
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -97,26 +99,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     // ButterKnife allows us to call methods like this
     @OnClick(R.id.btn_login)
     public void buttonLogin(View v) {
-        //This saves the studentID in the shared preference.
-        savePrefs(studentId.getText().toString());
-
-
         presenter.authStudent(
                 v,
                 studentId.getText().toString(),
                 studentPassword.getText().toString());
     }
 
-
-
-    private void savePrefs(String valueToSave){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+    private void saveStudentId(String valueToSave){
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.putString("StudentID", valueToSave);
-        edit.commit();
+        edit.putString("studentId", valueToSave);
+        edit.apply();
     }
-
-
-
 
 }
