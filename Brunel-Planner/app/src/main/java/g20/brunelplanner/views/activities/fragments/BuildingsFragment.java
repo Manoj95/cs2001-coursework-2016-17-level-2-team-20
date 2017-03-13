@@ -1,6 +1,5 @@
 package g20.brunelplanner.views.activities.fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +16,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
-import g20.brunelplanner.models.planner.Timetable;
-import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
+import g20.brunelplanner.models.map.Locations;
+import g20.brunelplanner.views.activities.adapters.BuildingsAdapter;
 
 
-public class TimetableFragment extends Fragment {
-
+public class BuildingsFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     protected RealmController realmController;
 
-    public TimetableFragment() {
+    public BuildingsFragment() {
         // ...
     }
 
@@ -39,8 +37,10 @@ public class TimetableFragment extends Fragment {
         // This is needed for some reason
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
-        recyclerView.setAdapter(new RecyclerViewAdapter(this,
-                realmController.getRealm().where(Timetable.class).equalTo("weeks.val", 12).findAllAsync()));
+        recyclerView.setAdapter(new BuildingsAdapter(this,
+                realmController.getRealm()
+                        .where(Locations.class)
+                        .distinct("building")));
         recyclerView.setHasFixedSize(true);
     }
 
@@ -52,9 +52,9 @@ public class TimetableFragment extends Fragment {
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         try {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Week 22");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Buildings List");
         } catch (NullPointerException e) {
-            Log.e("TimetableFragment", "onCreateView: ", e);
+            Log.e("BuildingsFragment", "onCreateView: ", e);
         }
         setUpRecyclerView();
         return view;

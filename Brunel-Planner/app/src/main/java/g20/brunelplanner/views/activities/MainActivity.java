@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
+import g20.brunelplanner.views.activities.fragments.BuildingsFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
 import g20.brunelplanner.views.activities.fragments.ModulesFragment;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    public static boolean count;
     protected RealmController realmController;
 
     @Override
@@ -107,6 +109,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_modules:
                 fragmentClass = ModulesFragment.class;
+                break;
+            case R.id.nav_buildings:
+                fragmentClass = BuildingsFragment.class;
+                count = true;
                 break;
             case R.id.nav_custom_events:
                 fragmentClass = CustomEventsFragment.class;

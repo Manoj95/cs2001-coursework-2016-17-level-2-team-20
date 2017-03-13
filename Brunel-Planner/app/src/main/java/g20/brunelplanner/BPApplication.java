@@ -1,7 +1,10 @@
 package g20.brunelplanner;
 
 import android.app.Application;
-
+import com.facebook.stetho.Stetho;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+import java.util.regex.Pattern;
+import g20.brunelplanner.controllers.databases.MapService;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -13,6 +16,7 @@ public class BPApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initRealmConfiguration();
+        initializeStetho(this);
 
     }
 
@@ -23,7 +27,20 @@ public class BPApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(base);
+        MapService.saveLocations();
 
+    }
+
+    private void initializeStetho(final BPApplication context) {
+
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(RealmInspectorModulesProvider.builder(this)
+                        .withDescendingOrder()
+                        .withLimit(1000)
+                        .databaseNamePattern(Pattern.compile(".+\\.realm"))
+                        .build())
+                .build());
     }
 
 }
