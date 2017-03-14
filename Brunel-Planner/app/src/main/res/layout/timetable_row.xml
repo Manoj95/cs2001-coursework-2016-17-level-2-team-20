@@ -20,13 +20,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="18dp">
+            android:paddingTop="18dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
 
             <TextView
                 android:id="@+id/event_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/event_type_and_staff"
@@ -39,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:layout_below="@+id/event_type_and_staff"
                 android:background="@color/iron"/>
 

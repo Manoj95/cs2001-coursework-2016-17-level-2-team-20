@@ -49,7 +49,7 @@ public class MapFragment extends Fragment {
                 @Override
                 public void onMapReady(final GoogleMap googleMap) {
 
-                    double[] object = {0, 0};
+                    double[] object = {0.0, 0.0};
 
                     if (type.equals("room")) {
                         object = MapService.queryRoomsDB(mapLocation);
@@ -60,10 +60,13 @@ public class MapFragment extends Fragment {
                     double mapLat = object[0];
                     double mapLong = object[1];
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mapLat, mapLong), 18.0f));
-                    googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    googleMap.setBuildingsEnabled(true);
+//                    googleMap.setMyLocationEnabled(true);
                     final LatLng MARKER = new LatLng(mapLat, mapLong);
                     googleMap.addMarker(new MarkerOptions()
                             .position(MARKER));
+
                 }
             });
         }
