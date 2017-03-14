@@ -13,7 +13,6 @@ public class MapService {
 
     private static RealmController realmController;
 
-
     public static double[] queryBuildingsDB(String building) {
         realmController = RealmController.getInstance();
 
@@ -24,13 +23,13 @@ public class MapService {
         double[] cords = new double[2];
 
         cords[0] = result.first().getLat();
-        cords[1] = result.first().getLongit();
+        cords[1] = result.first().getLong();
 
         realmController.closeRealm();
 
         return cords;
-
     }
+
     public static double[] queryRoomsDB(String rooms) {
         realmController = RealmController.getInstance();
 
@@ -42,12 +41,11 @@ public class MapService {
         double[] cords = new double[2];
 
         cords[0] = result.first().getLat();
-        cords[1] = result.first().getLongit();
+        cords[1] = result.first().getLong();
 
         realmController.closeRealm();
 
         return cords;
-
     }
 
     public static void saveLocation(final int id, final String room, final String building, final double mapLat, final double mapLong) {
@@ -60,18 +58,20 @@ public class MapService {
                 locations.setRoom(room);
                 locations.setBuilding(building);
                 locations.setLat(mapLat);
-                locations.setLongit(mapLong);
+                locations.setLong(mapLong);
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
-                Log.v("YES", "stored ok");
+//                Log.v("YES", "stored ok");
             }
+
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
                 Log.e("NO", error.getMessage());
             }
+
         });
 
         realmController.closeRealm();
@@ -103,8 +103,6 @@ public class MapService {
         saveLocation(23, "TB", "Tower B", 51.531500, -0.474181);
         saveLocation(24, "TC", "Tower C", 51.531356, -0.473483);
         saveLocation(25, "TD", "Tower D", 51.531408, -0.472808);
-
-
-
     }
+
 }

@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import g20.brunelplanner.R;
+import g20.brunelplanner.controllers.databases.MapService;
 import g20.brunelplanner.presenters.LoginPresenter;
 import g20.brunelplanner.presenters.LoginView;
 import io.realm.Realm;
@@ -92,15 +93,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void showTimetable() {
         //This saves the studentID in the shared preference.
         saveStudentId(studentId.getText().toString());
+        MapService.saveLocations();
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     // ButterKnife allows us to call methods like this
     @OnClick(R.id.btn_login)
-    public void buttonLogin(View v) {
+    public void buttonLogin(View view) {
         presenter.authStudent(
-                v,
+                view,
                 studentId.getText().toString(),
                 studentPassword.getText().toString());
     }

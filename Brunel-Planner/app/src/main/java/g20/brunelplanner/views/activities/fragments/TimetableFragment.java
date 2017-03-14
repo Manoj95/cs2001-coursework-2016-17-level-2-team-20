@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.models.planner.Timetable;
-import g20.brunelplanner.views.activities.adapters.RecyclerViewAdapter;
+import g20.brunelplanner.views.activities.adapters.TimetableAdapter;
 
 
 public class TimetableFragment extends Fragment {
@@ -39,7 +39,7 @@ public class TimetableFragment extends Fragment {
         // This is needed for some reason
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
-        recyclerView.setAdapter(new RecyclerViewAdapter(this,
+        recyclerView.setAdapter(new TimetableAdapter(this,
                 realmController.getRealm().where(Timetable.class).equalTo("weeks.val", 12).findAllAsync()));
         recyclerView.setHasFixedSize(true);
     }

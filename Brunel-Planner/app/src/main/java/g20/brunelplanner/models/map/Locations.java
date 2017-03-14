@@ -11,8 +11,8 @@ public class Locations extends RealmObject {
     public static final String ID = "id";
     public static final String ROOM = "room";
     public static final String BUILDING = "building";
-    public static final String LAT = "lat";
-    public static final String LONGIT = "longit";
+    public static final String CORDLAT = "cordlat";
+    public static final String CORDLONGIT = "cordlong";
 
     @PrimaryKey
     @SerializedName("id")
@@ -20,13 +20,13 @@ public class Locations extends RealmObject {
     @SerializedName("room")
     private String room;
 
-    @SerializedName("building")
     @Index
+    @SerializedName("building")
     private String building;
-    @SerializedName("lat")
-    private double lat;
-    @SerializedName("longit")
-    private double longit;
+    @SerializedName("cordlat")
+    private double cordlat;
+    @SerializedName("cordlong")
+    private double cordlong;
 
     public Locations(){ }
 
@@ -34,6 +34,7 @@ public class Locations extends RealmObject {
         this.id = id;
         return this;
     }
+
     public int getId(){
         return this.id;
     }
@@ -42,6 +43,7 @@ public class Locations extends RealmObject {
         this.room = room;
         return this;
     }
+
     public String getRoom(){
         return this.room;
     }
@@ -50,25 +52,27 @@ public class Locations extends RealmObject {
         this.building = building;
         return this;
     }
+
     public String getBuilding(){
         return this.building;
     }
 
-
     public Locations setLat(double lat){
-        this.lat = lat;
+        this.cordlat = lat;
         return this;
-    }
-    public double getLat(){
-        return this.lat;
     }
 
-    public Locations setLongit(double longit){
-        this.longit = longit;
+    public double getLat(){
+        return this.cordlat;
+    }
+
+    public Locations setLong(double cordlong){
+        this.cordlong = cordlong;
         return this;
     }
-    public double getLongit(){
-        return this.longit;
+
+    public double getLong(){
+        return this.cordlong;
     }
 
 }

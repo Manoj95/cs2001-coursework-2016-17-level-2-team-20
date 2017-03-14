@@ -2,10 +2,8 @@ package g20.brunelplanner.views.activities.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +19,7 @@ import g20.brunelplanner.views.activities.adapters.BuildingsAdapter;
 
 
 public class BuildingsFragment extends Fragment {
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -51,11 +50,6 @@ public class BuildingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
-        try {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Buildings List");
-        } catch (NullPointerException e) {
-            Log.e("BuildingsFragment", "onCreateView: ", e);
-        }
         setUpRecyclerView();
         return view;
 

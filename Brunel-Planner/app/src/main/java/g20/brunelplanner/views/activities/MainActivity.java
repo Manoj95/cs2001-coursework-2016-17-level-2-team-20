@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    public static boolean count;
     protected RealmController realmController;
 
     @Override
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_buildings:
                 fragmentClass = BuildingsFragment.class;
-                count = true;
                 break;
             case R.id.nav_custom_events:
                 fragmentClass = CustomEventsFragment.class;

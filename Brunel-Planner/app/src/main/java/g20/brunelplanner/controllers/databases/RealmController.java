@@ -7,10 +7,6 @@ public class RealmController {
     private static RealmController mInstance;
     public Realm realm;
 
-    private RealmController() {
-        // ...
-    }
-
     public static RealmController getInstance() {
         if (mInstance == null) {
             mInstance = new RealmController();
