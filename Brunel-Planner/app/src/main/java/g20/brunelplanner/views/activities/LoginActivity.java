@@ -100,9 +100,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     // ButterKnife allows us to call methods like this
     @OnClick(R.id.btn_login)
-    public void buttonLogin(View v) {
+    public void buttonLogin(View view) {
         presenter.authStudent(
-                v,
+                view,
                 studentId.getText().toString(),
                 studentPassword.getText().toString());
     }

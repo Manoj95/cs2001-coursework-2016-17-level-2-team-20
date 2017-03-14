@@ -1,5 +1,6 @@
 package g20.brunelplanner.views.activities.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -15,25 +17,22 @@ import java.util.List;
 
 import g20.brunelplanner.R;
 import g20.brunelplanner.models.planner.Timetable;
-import g20.brunelplanner.views.activities.MainActivity;
 import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
-public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
-        RecyclerViewAdapter.MyViewHolder> {
+public class TimetableAdapter extends RealmRecyclerViewAdapter<Timetable,
+        TimetableAdapter.MyViewHolder> {
 
-    public static String locationtemp;
-
-    public RecyclerViewAdapter(TimetableFragment activity, RealmResults<Timetable> data) {
+    public TimetableAdapter(TimetableFragment activity, RealmResults<Timetable> data) {
         super(activity.getActivity().getApplicationContext(), data, true);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MyViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.timetable_row, parent, false));
     }
 
     @Override
@@ -41,6 +40,7 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
         Timetable data = getData().get(position);
         holder.data = data;
         String desc = data.getDescription();
+
         if (!desc.isEmpty()) {
             holder.activity.setText(data.getDescription());
         } else {
@@ -64,34 +64,37 @@ public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Timetable,
 
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView activity;
         TextView type_and_staff;
-        TextView time;
-        TextView location;
-
+        Button time;
+        Button location;
 
         public Timetable data;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
-            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            cardView = (CardView) itemView.findViewById(R.id.card_view_timetable);
             activity = (TextView) view.findViewById(R.id.event_activity);
             type_and_staff = (TextView) view.findViewById(R.id.event_type_and_staff);
-            time = (TextView) view.findViewById(R.id.event_time);
-            location = (TextView) view.findViewById(R.id.event_location);
+            time = (Button) view.findViewById(R.id.event_time);
+            location = (Button) view.findViewById(R.id.event_location);
 
-            itemView.setOnClickListener(new View.OnClickListener(){
+            location.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                        locationtemp = String.valueOf(location.getText());
-                        MainActivity.count = false;
-                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        Fragment myFragment = new MapFragment();
-                        activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, myFragment)
+                    Bundle bundle = new Bundle();
+                    String mapLocationString = String.valueOf(location.getText());
+                    bundle.putString("mapLocation", mapLocationString);
+                    bundle.putString("type", "room");
+
+                    AppCompatActivity rootActivity = (AppCompatActivity) view.getContext();
+                    Fragment mapFragment = new MapFragment();
+                    mapFragment.setArguments(bundle);
+                    rootActivity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, mapFragment)
                             .addToBackStack(null)
                             .commit();
                 }
