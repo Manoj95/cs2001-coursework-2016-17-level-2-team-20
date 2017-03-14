@@ -58,4 +58,7 @@ dependencies {
 
     // Java serialization/deserialization
     compile 'com.google.code.gson:gson:2.8.0'
-}
+
+    //Colour Picker
+    compile 'org.xdty.preference:color-picker:0.0.4'
+    }
