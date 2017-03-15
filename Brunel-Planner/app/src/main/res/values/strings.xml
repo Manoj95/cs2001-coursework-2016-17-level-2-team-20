@@ -61,7 +61,7 @@
     <string name="faq_a2">Brunel Planner supports Android. We plan to expand the platform to iPhone, iPad and Blackberry in the nearest future.\n</string>
 
     <!-- Settings -->
-    <string name="settings_default_color">Colour</string>
+    <string name="settings_default_colour">Colour</string>
     <string name="settings_colour_prompt">Pick A Colour</string>
     <string name="settings_header_colour">Navigation Drawer Header Colour</string>
     <string name="settings_font_colour">Font Colour</string>
