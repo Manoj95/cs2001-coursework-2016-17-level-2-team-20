@@ -7,8 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 public class WeekDialogFragment extends DialogFragment {
 
     int currentWeek;
@@ -27,17 +25,17 @@ public class WeekDialogFragment extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ArrayList<Integer> weekList = new ArrayList<>();
+        String[] weekList = new String[52];
 
         for (int i = 0; i < 52; i++) {
-            weekList.add(i);
+            weekList[i] = (String.valueOf(i));
         }
 
-        builder.setTitle("Change Week")
-                .setPositiveButton("Set", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Log.d("Dialog", "onClick: Fire");
-                        sendBackResult(currentWeek);
+        builder.setTitle("Select Week")
+                .setItems(weekList, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendBackResult(which);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

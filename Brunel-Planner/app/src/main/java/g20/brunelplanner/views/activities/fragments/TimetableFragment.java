@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.models.planner.Timetable;
+import g20.brunelplanner.utils.CurrentWeek;
 import g20.brunelplanner.views.activities.adapters.TimetableAdapter;
 
 
@@ -62,6 +63,10 @@ public class TimetableFragment extends Fragment implements WeekDialogFragment.We
         switch (item.getItemId()) {
             case R.id.action_change_week:
                 changeWeek();
+                return true;
+            case R.id.action_reset_week:
+                week = CurrentWeek.getCurrentWeek();
+                setUpRecyclerView();
                 return true;
         }
 

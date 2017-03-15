@@ -40,8 +40,14 @@ public class MapService {
 
         double[] cords = new double[2];
 
-        cords[0] = result.first().getLat();
-        cords[1] = result.first().getLong();
+        try {
+            cords[0] = result.first().getLat();
+            cords[1] = result.first().getLong();
+        } catch (IndexOutOfBoundsException e) {
+            Log.e("Map", "queryRoomsDB: ", e);
+            cords[0] = 0;
+            cords[1] = 0;
+        }
 
         realmController.closeRealm();
 

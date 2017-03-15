@@ -5,6 +5,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_change_view">Change View</string>
     <string name="action_change_week">Change Week</string>
+    <string name="action_reset_week">Change Week</string>
 
     <!-- Misc -->
     <string name="text_student_id">Student ID</string>
