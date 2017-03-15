@@ -10,6 +10,7 @@
     <string name="text_student_id">Student ID</string>
     <string name="text_student_password">Password</string>
     <string name="button_login">Login</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- Drawer -->
     <string name="nav_drawer_open">Open navigation drawer</string>
@@ -61,9 +62,17 @@
     <string name="faq_a1">It is an app that allows students to keep track of their current timetable in a mobile friendly format. The app allows users to customise features to add specific events alongside saving any relevant details such as lecture notes. \n</string>
     <string name="faq_q2">Which platforms support Brunel Planner?\n</string>
     <string name="faq_a2">Brunel Planner supports Android. We plan to expand the platform to iPhone, iPad and Blackberry in the nearest future.\n</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Settings -->
+    <string name="settings_default_colour">Colour</string>
+    <string name="settings_colour_prompt">Pick A Colour</string>
+    <string name="settings_header_colour">Navigation Drawer Header Colour</string>
+    <string name="settings_font_colour">Font Colour</string>
+    <string name="settings_background_colour">Background Colour</string>
+    <string name="settings_actionbar_colour">Action Bar Colour</string>
+    <string name="settings_cards_colour">Cards Colour</string>
+    <string name="settings_notification">Enable Notification</string>
+    <string name="settings_save">Save</string>
+
+
 </resources>

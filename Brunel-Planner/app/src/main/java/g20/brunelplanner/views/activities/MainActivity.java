@@ -16,12 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
+import g20.brunelplanner.utils.Formatting;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.BuildingsFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
@@ -40,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
 
     protected RealmController realmController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         //This changes the student id to the actual student ID.
         setStudentId();
-
+		LoadPreviousPrefs();
     }
 
     @Override
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case R.id.action_settings:
+                openSettings();
                 return true;
             case R.id.action_logout:
                 realmController = RealmController.getInstance();
@@ -189,4 +193,86 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    private void openSettings() {
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = SettingsFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        navigationView.getMenu().findItem(R.id.nav_settings).setChecked(true);
+        // Set action bar title
+        setTitle(navigationView.getMenu().findItem(R.id.nav_settings).getTitle());
+    }
+
+    SettingsFragment SetFrag = new SettingsFragment();
+
+
+    //All the Default colour values of the app.
+    private int DefaultActionBarColour = SetFrag.getDefaultActionBarColour();
+    private int DefaultBackGroundColour = SetFrag.getDefaultBackGroundColour();
+    private int DefaultCardsColour = SetFrag.getDefaultCardsColour();
+    private int DefaultFontColour = SetFrag.getDefaultFontColour();
+    private int DefaultHeaderColour = SetFrag.getDefaultHeaderColour();
+
+    private int loadColourPrefs(String ValueOfKey, int DefaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        int StoredColour = sharedPreferences.
+                getInt(ValueOfKey, DefaultValue);
+        return StoredColour;
+
+    }
+    //the default value of the notification checkbox.
+    private boolean DefaultNotificationChose = SetFrag.isDefaultNotificationChose();
+
+    private boolean loadNotificationPrefs(String ValueOfKey, boolean DefaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        boolean StoredColour = sharedPreferences.
+                getBoolean(ValueOfKey, DefaultValue);
+        return StoredColour;
+
+    }
+    public void LoadPreviousPrefs(){
+
+        View headerView = navigationView.getHeaderView(0);
+        LinearLayout sideNavLayout = (LinearLayout)headerView.findViewById(R.id.sideNavLayout);
+        int PreHeaderColour = loadColourPrefs("HeaderColour", DefaultHeaderColour);
+        sideNavLayout.setBackgroundColor(PreHeaderColour);
+
+    }
+
+	public NavigationView GetNavView(){
+	    return navigationView;
+	}
+
+/*
+        header_text_view.setTextColor(PreHeaderColour);
+
+        int PreFontColour = loadColourPrefs("FontColour",DefaultFontColour);
+        font_text_view.setTextColor(PreFontColour);
+
+        int PreBackGroundColour = loadColourPrefs("BackGroundColour",DefaultBackGroundColour);
+        background_text_view.setTextColor(PreBackGroundColour);
+
+        int PreActionBarColour = loadColourPrefs("ActionBarColour",DefaultActionBarColour);
+        actionbar_text_view.setTextColor(PreActionBarColour);
+
+        int PreCardsColour = loadColourPrefs("CardsColour",DefaultCardsColour);
+        cards_text_view.setTextColor(PreCardsColour);
+
+        boolean PreNotificationChose = loadNotificationPrefs("Notification",DefaultNotificationChose);
+        notification_checkbox.setChecked(PreNotificationChose);*/
+
 }
