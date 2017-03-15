@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.models.planner.Timetable;
+import g20.brunelplanner.utils.CurrentWeek;
 import g20.brunelplanner.views.activities.adapters.TimetableAdapter;
 
 
@@ -32,7 +33,7 @@ public class TimetableFragment extends Fragment {
         // ...
     }
 
-    private void setUpRecyclerView() {
+    private void setUpRecyclerView(int week) {
         // There may be a better way to init this
         realmController = RealmController.getInstance();
 
@@ -40,7 +41,7 @@ public class TimetableFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         // Set the adapter for the recycler view and populate with the realm data
         recyclerView.setAdapter(new TimetableAdapter(this,
-                realmController.getRealm().where(Timetable.class).equalTo("weeks.val", 12).findAllAsync()));
+                realmController.getRealm().where(Timetable.class).equalTo("weeks.val", week).findAllAsync()));
         recyclerView.setHasFixedSize(true);
     }
 
@@ -51,16 +52,20 @@ public class TimetableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timetable, container, false);
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
+
+        int currentWeek = CurrentWeek.getCurrentWeek();
+
         try {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Week 22");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Week " + currentWeek);
         } catch (NullPointerException e) {
             Log.e("TimetableFragment", "onCreateView: ", e);
         }
-        setUpRecyclerView();
+
+        setUpRecyclerView(currentWeek);
+
         return view;
 
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -73,4 +78,6 @@ public class TimetableFragment extends Fragment {
         super.onDestroyView();
         realmController.closeRealm();
     }
+
+
 }
