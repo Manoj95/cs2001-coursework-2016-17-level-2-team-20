@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="action_change_view">Change View</string>
-
+    <string name="action_change_week">Change Week</string>
 
     <!-- Misc -->
     <string name="text_student_id">Student ID</string>
@@ -62,8 +62,5 @@
     <string name="faq_q2">Which platforms support Brunel Planner?\n</string>
     <string name="faq_a2">Brunel Planner supports Android. We plan to expand the platform to iPhone, iPad and Blackberry in the nearest future.\n</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

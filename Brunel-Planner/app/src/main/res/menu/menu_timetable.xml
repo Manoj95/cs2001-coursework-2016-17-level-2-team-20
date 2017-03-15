@@ -1,5 +1,13 @@
-<menu
-    xmlns:tools="http://schemas.android.com/tools"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="g20.brunelplanner.MainActivity">
+
+    <item
+        android:id="@+id/action_change_week"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_view_week_white_48dp"
+        android:title="@string/action_change_week"
+        app:showAsAction="ifRoom" />
 
 </menu>
