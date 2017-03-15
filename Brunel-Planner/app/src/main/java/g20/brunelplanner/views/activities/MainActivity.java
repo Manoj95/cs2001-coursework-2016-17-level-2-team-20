@@ -27,6 +27,7 @@ import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
 import g20.brunelplanner.utils.Formatting;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
+import g20.brunelplanner.views.activities.fragments.BuildingsFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
 import g20.brunelplanner.views.activities.fragments.ModulesFragment;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-    TextView StudentIDNav;
 
     protected RealmController realmController;
     @Override
@@ -59,15 +59,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        setDefault();
 
-        // Get the nav header views
-        View headerView = navigationView.getHeaderView(0);
+        if (savedInstanceState == null) {
+            setDefault();
+        }
 
-        StudentIDNav = (TextView) headerView.findViewById(R.id.nav_student_id);
         //This changes the student id to the actual student ID.
-        loadPrefs();
-        LoadPreviousPrefs();
+        setStudentId();
+		LoadPreviousPrefs();
     }
 
     @Override
@@ -113,6 +112,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_modules:
                 fragmentClass = ModulesFragment.class;
+                break;
+            case R.id.nav_buildings:
+                fragmentClass = BuildingsFragment.class;
                 break;
             case R.id.nav_custom_events:
                 fragmentClass = CustomEventsFragment.class;
@@ -173,13 +175,14 @@ public class MainActivity extends AppCompatActivity
         setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
 
-    private void loadPrefs() {
+    private void setStudentId() {
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView studentId = (TextView) headerView.findViewById(R.id.nav_student_id);
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        String studentIDNumber = sharedPreferences.
-                getString("StudentID", "StudentID");
-        StudentIDNav.setText(studentIDNumber);
 
+        studentId.setText(sharedPreferences.getString("studentId", "Planner"));
     }
 
     @Override
@@ -250,12 +253,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-public NavigationView GetNavView(){
-    return navigationView;
-}
-
-
-
+	public NavigationView GetNavView(){
+	    return navigationView;
+	}
 
 /*
         header_text_view.setTextColor(PreHeaderColour);
@@ -274,9 +274,5 @@ public NavigationView GetNavView(){
 
         boolean PreNotificationChose = loadNotificationPrefs("Notification",DefaultNotificationChose);
         notification_checkbox.setChecked(PreNotificationChose);*/
-
-
-
-
 
 }
