@@ -1,9 +1,11 @@
 package g20.brunelplanner.views.activities.fragments;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,22 +26,23 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import g20.brunelplanner.R;
+import g20.brunelplanner.views.activities.MainActivity;
 
 import static org.xdty.preference.colorpicker.ColorPickerDialog.newInstance;
 
 public class SettingsFragment extends Fragment {
 
+    
+    private int mSelectedColor;
 
-    private int mSelectedColor, actionBarColour, BackGroundColour, CardsColour, FontColour, HeaderColour;
-
-
-
+    //All the Default colour values of the app.
     private int DefaultActionBarColour = R.color.colorPrimary;
     private int DefaultBackGroundColour = R.color.cardview_light_background;
     private int DefaultCardsColour = R.color.cardview_light_background;
     private int DefaultFontColour = R.color.colorPrimaryDark;
     private int DefaultHeaderColour = R.color.colorAccent;
-    private boolean DefaultNotificationChose = true;
+    //the default value of the notification checkbox.
+    private boolean DefaultNotificationChose = false;
 
     @BindView(R.id.settings_actionbar_text_view)
     TextView actionbar_text_view;
@@ -100,6 +103,8 @@ public class SettingsFragment extends Fragment {
             @OnClick(R.id.store_settings)
     public void StoreSettings(View v) {
         Toast.makeText(getActivity(), "All Saved", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
     }
 
 
@@ -286,4 +291,33 @@ public class SettingsFragment extends Fragment {
         boolean PreNotificationChose = loadNotificationPrefs("Notification",DefaultNotificationChose);
         notification_checkbox.setChecked(PreNotificationChose);
     }
+    public int getmSelectedColor() {
+        return mSelectedColor;
+    }
+
+    public int getDefaultActionBarColour() {
+        return DefaultActionBarColour;
+    }
+
+    public int getDefaultBackGroundColour() {
+        return DefaultBackGroundColour;
+    }
+
+    public int getDefaultCardsColour() {
+        return DefaultCardsColour;
+    }
+
+    public int getDefaultFontColour() {
+        return DefaultFontColour;
+    }
+
+    public int getDefaultHeaderColour() {
+        return DefaultHeaderColour;
+    }
+
+    public boolean isDefaultNotificationChose() {
+        return DefaultNotificationChose;
+    }
+
+
 }

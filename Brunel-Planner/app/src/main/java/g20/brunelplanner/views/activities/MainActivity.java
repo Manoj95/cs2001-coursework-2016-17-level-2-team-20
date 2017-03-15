@@ -16,12 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
+import g20.brunelplanner.utils.Formatting;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
 import g20.brunelplanner.views.activities.fragments.HelpFragment;
@@ -37,11 +41,9 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
     TextView StudentIDNav;
 
     protected RealmController realmController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +63,11 @@ public class MainActivity extends AppCompatActivity
 
         // Get the nav header views
         View headerView = navigationView.getHeaderView(0);
+
         StudentIDNav = (TextView) headerView.findViewById(R.id.nav_student_id);
         //This changes the student id to the actual student ID.
         loadPrefs();
-
+        LoadPreviousPrefs();
     }
 
     @Override
@@ -208,5 +211,72 @@ public class MainActivity extends AppCompatActivity
         // Set action bar title
         setTitle(navigationView.getMenu().findItem(R.id.nav_settings).getTitle());
     }
+
+    SettingsFragment SetFrag = new SettingsFragment();
+
+
+    //All the Default colour values of the app.
+    private int DefaultActionBarColour = SetFrag.getDefaultActionBarColour();
+    private int DefaultBackGroundColour = SetFrag.getDefaultBackGroundColour();
+    private int DefaultCardsColour = SetFrag.getDefaultCardsColour();
+    private int DefaultFontColour = SetFrag.getDefaultFontColour();
+    private int DefaultHeaderColour = SetFrag.getDefaultHeaderColour();
+
+    private int loadColourPrefs(String ValueOfKey, int DefaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        int StoredColour = sharedPreferences.
+                getInt(ValueOfKey, DefaultValue);
+        return StoredColour;
+
+    }
+    //the default value of the notification checkbox.
+    private boolean DefaultNotificationChose = SetFrag.isDefaultNotificationChose();
+
+    private boolean loadNotificationPrefs(String ValueOfKey, boolean DefaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        boolean StoredColour = sharedPreferences.
+                getBoolean(ValueOfKey, DefaultValue);
+        return StoredColour;
+
+    }
+    public void LoadPreviousPrefs(){
+
+        View headerView = navigationView.getHeaderView(0);
+        LinearLayout sideNavLayout = (LinearLayout)headerView.findViewById(R.id.sideNavLayout);
+        int PreHeaderColour = loadColourPrefs("HeaderColour", DefaultHeaderColour);
+        sideNavLayout.setBackgroundColor(PreHeaderColour);
+
+    }
+
+public NavigationView GetNavView(){
+    return navigationView;
+}
+
+
+
+
+/*
+        header_text_view.setTextColor(PreHeaderColour);
+
+        int PreFontColour = loadColourPrefs("FontColour",DefaultFontColour);
+        font_text_view.setTextColor(PreFontColour);
+
+        int PreBackGroundColour = loadColourPrefs("BackGroundColour",DefaultBackGroundColour);
+        background_text_view.setTextColor(PreBackGroundColour);
+
+        int PreActionBarColour = loadColourPrefs("ActionBarColour",DefaultActionBarColour);
+        actionbar_text_view.setTextColor(PreActionBarColour);
+
+        int PreCardsColour = loadColourPrefs("CardsColour",DefaultCardsColour);
+        cards_text_view.setTextColor(PreCardsColour);
+
+        boolean PreNotificationChose = loadNotificationPrefs("Notification",DefaultNotificationChose);
+        notification_checkbox.setChecked(PreNotificationChose);*/
+
+
+
+
 
 }
