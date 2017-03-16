@@ -68,7 +68,7 @@
     <string name="settings_background_colour">Background Colour</string>
     <string name="settings_actionbar_colour">Action Bar Colour</string>
     <string name="settings_cards_colour">Cards Colour</string>
-    <string name="settings_notification">Enable Notification</string>
+    <string name="settings_body_colour">Navigation Drawer Body Colour</string>
     <string name="settings_save">Save</string>
 
 </resources>

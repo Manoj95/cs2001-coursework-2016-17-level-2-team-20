@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:text="@string/settings_header_colour" />
+        android:text="@string/settings_header_colour"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/settings_header_button"
@@ -28,21 +29,23 @@
         android:layout_below="@+id/settings_header_text_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+
     <TextView
-        android:id="@+id/settings_font_text_view"
+        android:id="@+id/settings_body_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/settings_header_button"
-        android:text="@string/settings_font_colour" />
+        android:text="@string/settings_body_colour"
+        android:textAlignment="center" />
 
     <Button
-        android:id="@+id/settings_font_button"
+        android:id="@+id/settings_body_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_colour_prompt"
-        android:layout_below="@id/settings_font_text_view"
+        android:layout_below="@+id/settings_body_text_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
@@ -52,8 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/settings_font_button"
-        android:text="@string/settings_background_colour" />
+        android:layout_below="@id/settings_body_button"
+        android:text="@string/settings_background_colour"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/settings_background_button"
@@ -63,6 +67,7 @@
         android:layout_below="@id/settings_background_text_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+
     <TextView
         android:id="@+id/settings_actionbar_text_view"
         android:layout_width="match_parent"
@@ -70,7 +75,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/settings_background_button"
-        android:text="@string/settings_actionbar_colour" />
+        android:text="@string/settings_actionbar_colour"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/settings_actionbar_button"
@@ -80,49 +86,15 @@
         android:layout_below="@id/settings_actionbar_text_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
-    <TextView
-        android:id="@+id/settings_cards_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/settings_actionbar_button"
-        android:text="@string/settings_cards_colour" />
-
-    <Button
-        android:id="@+id/settings_cards_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_colour_prompt"
-        android:layout_below="@id/settings_cards_text_view"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/settings_notification_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/settings_cards_button"
-        android:text="@string/settings_notification"
-        android:layout_alignParentEnd="true" />
-
-    <CheckBox
-        android:id="@+id/settings_notification_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/settings_notification_text_view"
-        android:text="@string/settings_notification"
-        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/store_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/settings_notification_checkbox"
+        android:text="@string/settings_save"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/settings_save" />
+        android:layout_below="@id/settings_actionbar_button"/>
 </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
 
