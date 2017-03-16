@@ -1,6 +1,7 @@
 package g20.brunelplanner.views.activities.adapters;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -19,11 +20,14 @@ import g20.brunelplanner.R;
 import g20.brunelplanner.models.planner.Timetable;
 import g20.brunelplanner.views.activities.fragments.MapFragment;
 import g20.brunelplanner.views.activities.fragments.TimetableFragment;
+import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
 public class TimetableAdapter extends RealmRecyclerViewAdapter<Timetable,
         TimetableAdapter.MyViewHolder> {
+
+    private int[] eventsInDays = {-1, -1, -1, -1, -1};
 
     public TimetableAdapter(TimetableFragment activity, RealmResults<Timetable> data) {
         super(activity.getActivity().getApplicationContext(), data, true);
@@ -31,12 +35,16 @@ public class TimetableAdapter extends RealmRecyclerViewAdapter<Timetable,
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        getDays();
         return new MyViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.timetable_row, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.timetable_row,
+                parent,
+                false));
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        // Display event
         Timetable data = getData().get(position);
         holder.data = data;
         String desc = data.getDescription();
@@ -61,7 +69,6 @@ public class TimetableAdapter extends RealmRecyclerViewAdapter<Timetable,
         String time = data.getStart() + " - " + data.getEnd();
         holder.time.setText(time);
         holder.location.setText(data.getRoom());
-
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -102,6 +109,27 @@ public class TimetableAdapter extends RealmRecyclerViewAdapter<Timetable,
             });
         }
 
-        // Add more functions here
     }
+
+//    private void getDays() {
+//        OrderedRealmCollection<Timetable> data = getData();
+//
+//        try {
+//            eventsInDays[0] = data.where().equalTo("day", "Monday").findFirst().getId();
+//            eventsInDays[1] = data.where().equalTo("day", "Tuesday").findFirst().getId();
+//            eventsInDays[2] = data.where().equalTo("day", "Wednesday").findFirst().getId();
+//            eventsInDays[3] = data.where().equalTo("day", "Thursday").findFirst().getId();
+//            eventsInDays[4] = data.where().equalTo("day", "Friday").findFirst().getId();
+//        } catch (NullPointerException e) {
+//            Log.e("Adapter", "getDays: ", e);
+//        }
+//
+//    }
+
+    @Nullable
+    @Override
+    public OrderedRealmCollection<Timetable> getData() {
+        return super.getData();
+    }
+
 }

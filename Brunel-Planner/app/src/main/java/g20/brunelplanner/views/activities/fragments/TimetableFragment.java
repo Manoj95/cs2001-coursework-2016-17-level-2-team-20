@@ -29,7 +29,7 @@ public class TimetableFragment extends Fragment implements WeekDialogFragment.We
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private int week;
+    private int week = 0;
 
     protected RealmController realmController;
 
@@ -42,7 +42,13 @@ public class TimetableFragment extends Fragment implements WeekDialogFragment.We
         realmController = RealmController.getInstance();
 
         try {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Week " + week);
+            if (week == CurrentWeek.getCurrentWeek()) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar()
+                        .setSubtitle("Week " + week + " [Current]");
+            } else {
+                ((AppCompatActivity) getActivity()).getSupportActionBar()
+                        .setSubtitle("Week " + week);
+            }
         } catch (NullPointerException e) {
             Log.e("TimetableFragment", "onCreateView: ", e);
         }
@@ -81,6 +87,7 @@ public class TimetableFragment extends Fragment implements WeekDialogFragment.We
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
 
+        week = CurrentWeek.getCurrentWeek();
         setUpRecyclerView();
 
         return view;
@@ -96,6 +103,7 @@ public class TimetableFragment extends Fragment implements WeekDialogFragment.We
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("");
         realmController.closeRealm();
     }
 

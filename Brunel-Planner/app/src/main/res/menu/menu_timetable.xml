@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_reset_week"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_change_history_white_48dp"
+        android:icon="@drawable/ic_arrow_back_white_48dp"
         android:title="@string/action_reset_week"
         app:showAsAction="ifRoom" />
 

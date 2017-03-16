@@ -37,6 +37,12 @@ public class MapFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("");
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -65,7 +71,7 @@ public class MapFragment extends Fragment {
 //                    }
 
                     try {
-                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mapLocation);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(mapLocation);
                     } catch (NullPointerException e) {
                         Log.e("MapFragment", "onCreateView: ", e);
                     }
