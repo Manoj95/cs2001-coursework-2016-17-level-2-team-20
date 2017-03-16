@@ -3,6 +3,8 @@ package g20.brunelplanner.views.activities.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,12 @@ public class MapFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("");
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -49,7 +57,7 @@ public class MapFragment extends Fragment {
                 @Override
                 public void onMapReady(final GoogleMap googleMap) {
 
-                    double[] object = {0.0, 0.0};
+                    double[] object;
 
                     if (type.equals("room")) {
                         object = MapService.queryRoomsDB(mapLocation);
@@ -57,12 +65,22 @@ public class MapFragment extends Fragment {
                         object = MapService.queryBuildingsDB(mapLocation);
                     }
 
+//                    // Not found
+//                    if (object[0] == 0) {
+//                        lo
+//                    }
+
+                    try {
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(mapLocation);
+                    } catch (NullPointerException e) {
+                        Log.e("MapFragment", "onCreateView: ", e);
+                    }
+
                     double mapLat = object[0];
                     double mapLong = object[1];
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mapLat, mapLong), 18.0f));
                     googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                     googleMap.setBuildingsEnabled(true);
-//                    googleMap.setMyLocationEnabled(true);
                     final LatLng MARKER = new LatLng(mapLat, mapLong);
                     googleMap.addMarker(new MarkerOptions()
                             .position(MARKER));

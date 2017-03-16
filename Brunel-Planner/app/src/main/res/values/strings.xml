@@ -4,7 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="action_change_view">Change View</string>
-
+    <string name="action_change_week">Change Week</string>
+    <string name="action_reset_week">Change Week</string>
 
     <!-- Misc -->
     <string name="text_student_id">Student ID</string>
@@ -73,6 +74,5 @@
     <string name="settings_cards_colour">Cards Colour</string>
     <string name="settings_notification">Enable Notification</string>
     <string name="settings_save">Save</string>
-
 
 </resources>
