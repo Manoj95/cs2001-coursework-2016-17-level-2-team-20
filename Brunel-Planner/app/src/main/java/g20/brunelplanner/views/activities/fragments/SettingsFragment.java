@@ -32,7 +32,7 @@ import static org.xdty.preference.colorpicker.ColorPickerDialog.newInstance;
 
 public class SettingsFragment extends Fragment {
 
-    
+
     private int mSelectedColor;
 
     //All the Default colour values of the app.
