@@ -1,7 +1,11 @@
 Brunel-Planner
 =======
 
+![Feature Graphic](https://i.imgur.com/rEVMbYA.png)
+
 ### APK Download
+
+[**Direct Download**: (Version 0.7)]()
 
 ## Source
 
@@ -22,5 +26,3 @@ Brunel-Planner
 - **GSON**: https://github.com/google/gson
 
 - **ColorPicker**: https://github.com/xdtianyu/ColorPicker
-
-## Disclaimer
