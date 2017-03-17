@@ -7,26 +7,24 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-//Importing the colour picker library.
+
 import org.xdty.preference.colorpicker.ColorPickerDialog;
 import org.xdty.preference.colorpicker.ColorPickerSwatch;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import g20.brunelplanner.R;
 import g20.brunelplanner.views.activities.MainActivity;
 
 import static org.xdty.preference.colorpicker.ColorPickerDialog.newInstance;
+
+//Importing the colour picker library.
 
 public class SettingsFragment extends Fragment {
 
@@ -74,20 +72,15 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.store_settings)
     Button save_button;
 
-    public SettingsFragment() {}
+    public SettingsFragment() {
+        // ...
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        try {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("");
-        } catch (NullPointerException e) {
-            Log.e("SettingsFragment", "onCreateView: ", e);
-        }
-        ButterKnife.bind(this,view);
-        //LoadPreviousPrefs();
-        return view;
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
     @OnClick(R.id.store_settings)
@@ -99,7 +92,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @OnClick(R.id.settings_header_button)
-    public void HeaderColour(View v) {
+    public void HeaderColour() {
 
         mSelectedColor = ContextCompat.getColor(getActivity(), DefaultHeaderColour);
         int[] mColors = getResources().getIntArray(R.array.rainbow);
@@ -127,7 +120,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @OnClick(R.id.settings_actionbar_button)
-    public void ActionBarColour(View v) {
+    public void ActionBarColour() {
         mSelectedColor = ContextCompat.getColor(getActivity(), DefaultActionBarColour);
         int[] mColors = getResources().getIntArray(R.array.rainbow);
 
@@ -154,7 +147,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @OnClick(R.id.settings_background_button)
-    public void BackgroundColour(View v) {
+    public void BackgroundColour() {
         mSelectedColor = ContextCompat.getColor(getActivity(), DefaultBackGroundColour);
         int[] mColors = getResources().getIntArray(R.array.rainbow);
 
@@ -181,7 +174,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @OnClick(R.id.settings_body_button)
-    public void NavBodyColour(View v) {
+    public void NavBodyColour() {
         mSelectedColor = ContextCompat.getColor(getActivity(), DefaultNavBodyColour);
         int[] mColors = getResources().getIntArray(R.array.rainbow);
 
