@@ -25,7 +25,7 @@
     <color name="blue">#0000FF</color>
     <color name="violet">#7F00FF</color>
     <color name="magenta">#FF00FF</color>
-    <color name="darkBlue">#040993</color>
+    <color name="darkBlue">#030661</color>
 
     <array name="rainbow">
 
@@ -39,7 +39,7 @@
         <item>@color/blue</item>
         <item>@color/darkBlue</item>
         <item>@color/colorPrimary</item>
-        <item>@color/black</item>
+        <item>@color/jet</item>
         <item>@color/monsoon</item>
         <item>@color/iron</item>
         <item>@color/violet</item>

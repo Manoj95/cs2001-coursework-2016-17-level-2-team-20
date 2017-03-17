@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!-- Programmatically change the student id when sharedprefs is implemented -->
+
     <TextView
         android:id="@+id/nav_student_id"
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package g20.brunelplanner.views.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -13,11 +14,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         //This changes the student id to the actual student ID.
         setStudentId();
 		LoadPreviousPrefs();
+
     }
 
     @Override
@@ -217,13 +221,11 @@ public class MainActivity extends AppCompatActivity
 
     SettingsFragment SetFrag = new SettingsFragment();
 
-
     //All the Default colour values of the app.
     private int DefaultActionBarColour = SetFrag.getDefaultActionBarColour();
     private int DefaultBackGroundColour = SetFrag.getDefaultBackGroundColour();
-    private int DefaultCardsColour = SetFrag.getDefaultCardsColour();
-    private int DefaultFontColour = SetFrag.getDefaultFontColour();
     private int DefaultHeaderColour = SetFrag.getDefaultHeaderColour();
+    private int DefaultBodyColour = SetFrag.getDefaultNavBodyColour();
 
     private int loadColourPrefs(String ValueOfKey, int DefaultValue) {
         SharedPreferences sharedPreferences = PreferenceManager.
@@ -233,46 +235,53 @@ public class MainActivity extends AppCompatActivity
         return StoredColour;
 
     }
-    //the default value of the notification checkbox.
-    private boolean DefaultNotificationChose = SetFrag.isDefaultNotificationChose();
 
-    private boolean loadNotificationPrefs(String ValueOfKey, boolean DefaultValue) {
+    public void LoadPreviousPrefs(){
+        LoadStudentID();
+        LoadNavHeaderSettings();
+        LoadNavBodySettings();
+        LoadActionBarSettings();
+        LoadBackgroundSettings();
+    }
+
+    private void LoadStudentID() {
+        //This changes the student id to the actual student ID.
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        boolean StoredColour = sharedPreferences.
-                getBoolean(ValueOfKey, DefaultValue);
-        return StoredColour;
+        String studentIDNumber = sharedPreferences.
+                getString("StudentID", "StudentID");
+        StudentIDNav.setText(studentIDNumber);
 
     }
-    public void LoadPreviousPrefs(){
 
+    public void LoadNavHeaderSettings(){
         View headerView = navigationView.getHeaderView(0);
         LinearLayout sideNavLayout = (LinearLayout)headerView.findViewById(R.id.sideNavLayout);
         int PreHeaderColour = loadColourPrefs("HeaderColour", DefaultHeaderColour);
         sideNavLayout.setBackgroundColor(PreHeaderColour);
+    }
+
+    public void LoadActionBarSettings(){
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        int PreActionBarColour = loadColourPrefs("ActionBarColour", DefaultActionBarColour);
+        toolbar.setBackgroundColor(PreActionBarColour);
 
     }
 
-	public NavigationView GetNavView(){
-	    return navigationView;
-	}
+    public void LoadBackgroundSettings() {
 
-/*
-        header_text_view.setTextColor(PreHeaderColour);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        int PreBackgroundColour = loadColourPrefs("BackGroundColour", DefaultBackGroundColour);
+        drawerLayout.setBackgroundColor(PreBackgroundColour);
 
-        int PreFontColour = loadColourPrefs("FontColour",DefaultFontColour);
-        font_text_view.setTextColor(PreFontColour);
+    }
 
-        int PreBackGroundColour = loadColourPrefs("BackGroundColour",DefaultBackGroundColour);
-        background_text_view.setTextColor(PreBackGroundColour);
+    public void LoadNavBodySettings(){
 
-        int PreActionBarColour = loadColourPrefs("ActionBarColour",DefaultActionBarColour);
-        actionbar_text_view.setTextColor(PreActionBarColour);
+        int PreBodyColour = loadColourPrefs("NavigationBodyColour", DefaultBodyColour);
+        navigationView.setBackgroundColor(PreBodyColour);
 
-        int PreCardsColour = loadColourPrefs("CardsColour",DefaultCardsColour);
-        cards_text_view.setTextColor(PreCardsColour);
-
-        boolean PreNotificationChose = loadNotificationPrefs("Notification",DefaultNotificationChose);
-        notification_checkbox.setChecked(PreNotificationChose);*/
+    }
 
 }
