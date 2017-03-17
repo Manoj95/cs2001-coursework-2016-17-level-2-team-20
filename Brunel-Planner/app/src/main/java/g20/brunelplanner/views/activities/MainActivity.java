@@ -2,7 +2,6 @@ package g20.brunelplanner.views.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -14,21 +13,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import g20.brunelplanner.R;
 import g20.brunelplanner.controllers.databases.RealmController;
-import g20.brunelplanner.utils.Formatting;
 import g20.brunelplanner.views.activities.fragments.AboutFragment;
 import g20.brunelplanner.views.activities.fragments.BuildingsFragment;
 import g20.brunelplanner.views.activities.fragments.CustomEventsFragment;
@@ -67,9 +61,7 @@ public class MainActivity extends AppCompatActivity
             setDefault();
         }
 
-        //This changes the student id to the actual student ID.
-        setStudentId();
-		LoadPreviousPrefs();
+//		loadPreviousPrefs();
 
     }
 
@@ -179,16 +171,6 @@ public class MainActivity extends AppCompatActivity
         setTitle(navigationView.getMenu().findItem(R.id.nav_timetable).getTitle());
     }
 
-    private void setStudentId() {
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView studentId = (TextView) headerView.findViewById(R.id.nav_student_id);
-        SharedPreferences sharedPreferences = PreferenceManager.
-                getDefaultSharedPreferences(this);
-
-        studentId.setText(sharedPreferences.getString("studentId", "Planner"));
-    }
-
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
@@ -230,58 +212,49 @@ public class MainActivity extends AppCompatActivity
     private int loadColourPrefs(String ValueOfKey, int DefaultValue) {
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        int StoredColour = sharedPreferences.
-                getInt(ValueOfKey, DefaultValue);
-        return StoredColour;
-
+        return sharedPreferences.getInt(ValueOfKey, DefaultValue);
     }
 
-    public void LoadPreviousPrefs(){
-        LoadStudentID();
-        LoadNavHeaderSettings();
-        LoadNavBodySettings();
-        LoadActionBarSettings();
-        LoadBackgroundSettings();
+    public void loadPreviousPrefs(){
+        loadStudentID();
+        loadNavHeaderSettings();
+        loadNavBodySettings();
+        loadActionBarSettings();
+        loadBackgroundSettings();
     }
 
-    private void LoadStudentID() {
-        //This changes the student id to the actual student ID.
+    private void loadStudentID() {
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView studentId = (TextView) headerView.findViewById(R.id.nav_student_id);
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        String studentIDNumber = sharedPreferences.
-                getString("StudentID", "StudentID");
-        StudentIDNav.setText(studentIDNumber);
 
+        studentId.setText(sharedPreferences.getString("studentId", "Planner"));
     }
 
-    public void LoadNavHeaderSettings(){
+    public void loadNavHeaderSettings(){
         View headerView = navigationView.getHeaderView(0);
         LinearLayout sideNavLayout = (LinearLayout)headerView.findViewById(R.id.sideNavLayout);
         int PreHeaderColour = loadColourPrefs("HeaderColour", DefaultHeaderColour);
         sideNavLayout.setBackgroundColor(PreHeaderColour);
     }
 
-    public void LoadActionBarSettings(){
-
+    public void loadActionBarSettings(){
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         int PreActionBarColour = loadColourPrefs("ActionBarColour", DefaultActionBarColour);
         toolbar.setBackgroundColor(PreActionBarColour);
-
     }
 
-    public void LoadBackgroundSettings() {
-
+    public void loadBackgroundSettings() {
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         int PreBackgroundColour = loadColourPrefs("BackGroundColour", DefaultBackGroundColour);
         drawerLayout.setBackgroundColor(PreBackgroundColour);
-
     }
 
-    public void LoadNavBodySettings(){
-
+    public void loadNavBodySettings(){
         int PreBodyColour = loadColourPrefs("NavigationBodyColour", DefaultBodyColour);
         navigationView.setBackgroundColor(PreBodyColour);
-
     }
 
 }
