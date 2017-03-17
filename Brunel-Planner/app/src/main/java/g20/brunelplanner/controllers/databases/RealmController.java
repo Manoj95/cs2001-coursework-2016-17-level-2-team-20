@@ -5,11 +5,7 @@ import io.realm.Realm;
 public class RealmController {
 
     private static RealmController mInstance;
-    private Realm realm;
-
-    private RealmController() {
-        // ...
-    }
+    public Realm realm;
 
     public static RealmController getInstance() {
         if (mInstance == null) {

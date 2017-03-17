@@ -13,6 +13,7 @@ public class BPApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initRealmConfiguration();
+//        initializeStetho(this);
 
     }
 
@@ -23,7 +24,17 @@ public class BPApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(base);
-
     }
+
+//    private void initializeStetho(final BPApplication context) {
+//        Stetho.initialize(Stetho.newInitializerBuilder(this)
+//                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+//                .enableWebKitInspector(RealmInspectorModulesProvider.builder(this)
+//                        .withDescendingOrder()
+//                        .withLimit(1000)
+//                        .databaseNamePattern(Pattern.compile(".+\\.realm"))
+//                        .build())
+//                .build());
+//    }
 
 }
