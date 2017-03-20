@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Brunel Planner</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/5.0.0/normalize.css">
 	<link rel="stylesheet" href="css/devices.min.css">
 	<link rel="stylesheet" href="css/main.css">
@@ -16,10 +17,10 @@
 				<div class="volume"></div>
 				<div class="camera"></div>
 				<div class="screen">
-					<video autoplay loop>
-						<source src="" type="video/mp4">
+					<video id="video" autoplay loop>
+						<!-- <source type="video/mp4">
 							Your browser does not support the video tag. :C
-						</video>
+						</video> -->
 					</div>
 				</div>
 			</div>
@@ -37,19 +38,19 @@
 					<h3>Features</h3>
 					<div class="fragments">
 						<div class="item">
-							<a href="#" class="active"><i class="material-icons max">date_range</i>
+							<a href="#timetable" onclick='playTimetable()'><i class="material-icons max">date_range</i>
 							<br>Timetable</a>
 						</div>
 						<div class="item">
-							<a href="#"><i class="material-icons max">event</i>
+							<a href="#event"><i class="material-icons max">event</i>
 							<br>Events</a>
 						</div>
 						<div class="item">
-							<a href="#"><i class="material-icons max">note</i>
+							<a href="#notes"><i class="material-icons max">note</i>
 							<br>Notes</a>
 						</div>
 						<div class="item">
-							<a href="#"><i class="material-icons max">map</i>
+							<a href="#maps" onclick='playMaps()'><i class="material-icons max">map</i>
 							<br>Maps</a>
 						</div>
 					</div>
@@ -57,5 +58,6 @@
 			</div>
 		</div>
 		</div>
+		<script src="video.js"></script>
 	</body>
 </html>
