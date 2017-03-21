@@ -17,6 +17,22 @@ function playMaps() {
   play()
 }
 
+function playEvents() {
+  hideAll();
+  $( ".event" ).toggle();
+  source.setAttribute('src', 'videos/compressed_event.mp4');
+  video.appendChild(source);
+  play()
+}
+
+function playNotes() {
+  hideAll();
+  $( ".note" ).toggle();
+  source.setAttribute('src', 'videos/compressed_note.mp4');
+  video.appendChild(source);
+  play()
+}
+
 function play() {
   video.pause();
   video.load();
@@ -26,4 +42,6 @@ function play() {
 function hideAll() {
   $( ".timetable" ).toggle(false);
   $( ".maps" ).toggle(false);
+  $( ".event" ).toggle(false); 
+  $( ".note" ).toggle(false); 
 }

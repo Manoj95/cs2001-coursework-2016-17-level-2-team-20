@@ -30,7 +30,7 @@
 					<h1>Brunel Planner</h1>
 				</div>
 				<div class="card">
-					<p>Short description</p>
+					<p>Brunel Planner is an app that allows students to keep track of their current timetable in a mobile friendly format. The app allows users to customise features to add specific events alongside saving any relevant details such as lecture notes.</p>
 					<p><a href="https://github.com/BrunelCS/cs2001-coursework-2016-17-level-2-team-20" >Github</a></p>
 				</div>
 				<div class="card">
@@ -41,11 +41,11 @@
 							<br>Timetable</a>
 						</div>
 						<div class="item">
-							<a href="#event"><i class="material-icons max">event</i>
+							<a href="#event" onclick='playEvents()'><i class="material-icons max">event</i>
 							<br>Events</a>
 						</div>
 						<div class="item">
-							<a href="#notes"><i class="material-icons max">note</i>
+							<a href="#notes" onclick='playNotes()'><i class="material-icons max">note</i>
 							<br>Notes</a>
 						</div>
 						<div class="item">
@@ -56,11 +56,20 @@
 				</div>
 				<div style="display: none" class="card timetable">
 					<h3>Timetable</h3>
-					<p>Describe the timetable</p>
+					<p>The Timetable page allows a user to view their individual timetable. The day of the week is displayed alongside the name of the module, lecturer, time of lecture and where the lecture is going to be held.</p>
+				</div>
+				<div style="display: none" class="card event">
+					<h3>Events</h3>
+					<p>The Events page allows a user to create new custom events and assign them to a specific date and modules.</p>
+				</div>
+				<div style="display: none" class="card note">
+					<h3>Notes</h3>
+					<p>The Notes page allows a user to create new custom notes and assign them to specific modules.</p>
 				</div>
 				<div style="display: none" class="card maps">
 					<h3>Maps</h3>
-					<p>Describe the maps</p>
+					<p>The Maps page allows a user to find their way around Brunel buildings. </p>
+				</div>
 				</div>
 			</div>
 		</div>
